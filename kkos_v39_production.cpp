@@ -1,4 +1,4 @@
-
+// This file has been moved to archive/kkos_v39_production.cpp for consolidation.
 // kkos_v2_unified.cpp
 // KKOS v2.0 / Kurfew Kult Codex — Coherence-Driven Universal Simulation Shell
 // C++17 Standard Compliance, Cross-Platform Desktop & Mobile Engine Compatible
@@ -19,19 +19,6 @@
 #include <thread>
 #include <atomic>
 #include <mutex>
-
-#ifdef _WIN32
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <windows.h>
-#pragma comment(lib, "ws2_32.lib")
-#else
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#endif
 
 namespace fs = std::filesystem;
 
@@ -110,25 +97,17 @@ double clampDouble(double v, double lo, double hi) {
     return v;
 }
 
-// Utility to trim whitespace from a string
-std::string trim(const std::string& str) {
-    size_t first = str.find_first_not_of(" \t\n\r");
-    if (std::string::npos == first) {
-        return str;
-    }
-    size_t last = str.find_last_not_of(" \t\n\r");
-    return str.substr(first, (last - first + 1));
-}
-
 std::string toLower(std::string s) {
-    std::transform(s.begin(), s.end(), s.begin(),
-                   { return std::tolower(c); });
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
     return s;
 }
 
-// ============================================================================
-// SYSTEM STRUCTURES, METRICS, AND TELEMETRY CONFIGURATION
-// ============================================================================
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(" \t\n\r");
+    if (std::string::npos == first) return "";
+    size_t last = str.find_last_not_of(" \t\n\r");
+    return str.substr(first, (last - first + 1));
+}
 
 struct Config {
     double baseSynchronization   = 0.75;
@@ -155,15 +134,12 @@ struct Config {
     bool websocketAuth           = false;
     std::string websocketToken   = "default_token";
     int websocketMaxArgsLength   = 256;
-    std::vector<std::string> websocketAllowCommands = {"status", "coherence"};
+    std::vector<std::string> websocketAllowCommands = {"status", "coherence", "help"};
 
     static Config load(const std::string& path) {
         Config cfg;
         std::ifstream in(path);
-        if (!in.is_open()) {
-            std::cerr << "Warning: config.json not found or could not be opened. Using defaults.\n";
-            return cfg;
-        }
+        if (!in.is_open()) return cfg;
 
         std::string line;
         while (std::getline(in, line)) {
@@ -176,9 +152,14 @@ struct Config {
             std::string key = trim(line.substr(0, colonPos));
             std::string value = trim(line.substr(colonPos + 1));
 
-            if (!value.empty() && value.back() == ',') value.pop_back();
-            if (!key.empty() && key.front() == '"' && key.back() == '"') key = key.substr(1, key.length() - 2);
-            if (!value.empty() && value.front() == '"' && value.back() == '"') value = value.substr(1, value.length() - 2);
+            auto clean = [](std::string s) {
+                if (!s.empty() && s.back() == ',') s.pop_back();
+                if (!s.empty() && s.front() == '"' && s.back() == '"') s = s.substr(1, s.length() - 2);
+                return s;
+            };
+
+            key = clean(key);
+            value = clean(value);
 
             if (key == "baseSynchronization") cfg.baseSynchronization = std::stod(value);
             else if (key == "baseStability") cfg.baseStability = std::stod(value);
@@ -202,26 +183,88 @@ struct Config {
             else if (key == "websocketAuth") cfg.websocketAuth = (value == "true");
             else if (key == "websocketToken") cfg.websocketToken = value;
             else if (key == "websocketMaxArgsLength") cfg.websocketMaxArgsLength = std::stoi(value);
-            else if (key == "websocketAllowCommands") {
-                // This is a simplified parser for a comma-separated list of strings
-                std::stringstream ss(value);
-                std::string item;
-                cfg.websocketAllowCommands.clear();
-                while (std::getline(ss, item, ',')) {
-                    cfg.websocketAllowCommands.push_back(trim(item));
-                }
-            }
         }
         return cfg;
     }
 };
 
 struct CoherenceMetrics {
-    double synchronization   = 0.7;
+    // v3.9 Combined Metric Set - Standardized to Logic expectations
+    float coherence          = 70.0f;
+    float stressLoad         = 10.0f;
+    float stress_load        = 10.0f;
+    float sustainability     = 80.0f;
+    float thermalStability   = 90.0f;
+    float thermal_stability  = 90.0f;
+    float synchronization    = 75.0f;
+
     double stability         = 0.7;
-    double sustainability    = 0.7;
     double runtimeIntegrity  = 0.7;
-    double stressLoad        = 0.2;
+    double entropy           = 0.2;
+    double errorPropagation  = 0.1;
+};
+
+struct SystemState {
+    bool inoculated          = false;
+    bool collapsed           = false;
+    bool sustaining          = false;
+    CoherenceMetrics metrics;
+    int coherenceScore       = 70;
+};
+
+std::string timestamp(bool fileSafe = false) {
+    auto now = std::chrono::system_clock::now();
+    std::time_t t = std::chrono::system_clock::to_time_t(now);
+    std::tm tm{};
+#ifdef _WIN32
+    localtime_s(&tm, &t);
+#else
+    localtime_r(&t, &tm);
+#endif
+    std::ostringstream oss;
+    if (fileSafe) {
+        oss << std::put_time(&tm, "%Y%m%d_%H%M%S");
+    } else {
+        oss << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
+    }
+    return oss.str();
+}
+
+std::string filenameTimestamp() { return timestamp(true); }
+
+void printColored(const std::string& text, AnsiColor c) {
+    std::cout << colorCode(c) << text << colorCode(AnsiColor::RESET);
+}
+
+// ============================================================================
+// SYSTEM STRUCTURES, METRICS, AND TELEMETRY CONFIGURATION
+// ============================================================================
+
+struct Config {
+    double baseSynchronization   = 0.75;
+    double baseStability         = 0.75;
+    double baseSustainability    = 0.80;
+    double baseRuntimeIntegrity  = 0.80;
+    double baseStressLoad        = 0.15;
+    double baseEntropy           = 0.15;
+    double baseErrorPropagation  = 0.10;
+    int collapseThreshold        = 25;
+    int recoveryThreshold        = 40;
+    bool kidMode                 = false;
+    bool expertMode              = true;
+    double sustainBoostFactor    = 1.0;
+};
+
+struct CoherenceMetrics {
+    // v3.9 Combined Metric Set
+    float coherence          = 70.0f;
+    float stress_load        = 10.0f;
+    float sustainability     = 80.0f;
+    float thermal_stability  = 90.0f;
+    float synchronization    = 75.0f;
+
+    double stability         = 0.7;
+    double runtimeIntegrity  = 0.7;
     double entropy           = 0.2;
     double errorPropagation  = 0.1;
 };
@@ -246,21 +289,32 @@ struct CodexEntry {
     std::string citation;
 };
 
+struct RuntimeContext {
+    SystemState state;
+    Config config;
+    bool running = true;
+    std::string logFilePath;
+    std::vector<TelemetrySample> telemetryHistory;
+    std::vector<CodexEntry> codexDatabase;
+    std::mutex stateMutex;
+};
+
 // ============================================================================
 // ENCAPSULATED CORE PROCESSOR: COHERENCE ENGINE
 // ============================================================================
 
 class CoherenceEngine {
 private:
-    const Config& cfg;
+    const Config* cfg_ptr;
     std::mt19937 rng;
     std::uniform_real_distribution<double> noise;
 
 public:
     explicit CoherenceEngine(const Config& config)
-    : cfg(config), rng(std::random_device{}()), noise(-0.03, 0.03) {}
+    : cfg_ptr(&config), rng(std::random_device{}()), noise(-0.03, 0.03) {}
 
     void initialize(SystemState& state) {
+        const auto& cfg = *cfg_ptr;
         state.inoculated = true;
         state.collapsed  = false;
         state.sustaining = false;
@@ -269,14 +323,17 @@ public:
         state.metrics.sustainability    = cfg.baseSustainability;
         state.metrics.runtimeIntegrity  = cfg.baseRuntimeIntegrity;
         state.metrics.stressLoad        = cfg.baseStressLoad;
+        state.metrics.stress_load       = cfg.baseStressLoad;
         state.metrics.entropy           = cfg.baseEntropy;
         state.metrics.errorPropagation  = cfg.baseErrorPropagation;
         state.coherenceScore = computeCoherence(state.metrics);
     }
 
     void applyStress(SystemState& state, double magnitude) {
+        const auto& cfg = *cfg_ptr;
         magnitude = clampDouble(magnitude, 0.0, 1.0);
         state.metrics.stressLoad       = clampDouble(state.metrics.stressLoad + magnitude * 0.3, 0.0, 1.0);
+        state.metrics.stress_load      = state.metrics.stressLoad;
         state.metrics.entropy          = clampDouble(state.metrics.entropy + magnitude * 0.25, 0.0, 1.0);
         state.metrics.errorPropagation = clampDouble(state.metrics.errorPropagation + magnitude * 0.2, 0.0, 1.0);
         state.metrics.synchronization  = clampDouble(state.metrics.synchronization - magnitude * 0.2, 0.0, 1.0);
@@ -290,9 +347,11 @@ public:
     }
 
     void sustain(SystemState& state, double effort) {
+        const auto& cfg = *cfg_ptr;
         effort = clampDouble(effort * cfg.sustainBoostFactor, 0.0, 1.0);
         state.sustaining = true;
         state.metrics.stressLoad       = clampDouble(state.metrics.stressLoad - effort * 0.25, 0.0, 1.0);
+        state.metrics.stress_load      = state.metrics.stressLoad;
         state.metrics.entropy          = clampDouble(state.metrics.entropy - effort * 0.2, 0.0, 1.0);
         state.metrics.errorPropagation = clampDouble(state.metrics.errorPropagation - effort * 0.2, 0.0, 1.0);
         state.metrics.synchronization  = clampDouble(state.metrics.synchronization + effort * 0.25, 0.0, 1.0);
@@ -318,7 +377,6 @@ public:
         return std::clamp(static_cast<int>(std::round(normalized * 100.0)), 0, 100);
     }
 };
-
 
 #ifdef _WIN32
 using socket_t = SOCKET;
@@ -378,64 +436,36 @@ static std::string base64Encode(const std::string& data) {
     return result;
 }
 
-static uint32_t rotl(uint32_t value, unsigned int count) {
-    return (value << count) | (value >> (32 - count));
-}
-
 static std::string sha1HashBytes(const std::string& input) {
-    std::vector<uint8_t> msg(input.begin(), input.end());
-    uint64_t bits = static_cast<uint64_t>(msg.size()) << 3;
-    msg.push_back(0x80);
-    while (msg.size() % 64 != 56) msg.push_back(0x00);
-    for (int i = 7; i >= 0; --i) msg.push_back(static_cast<uint8_t>(bits >> (i << 3)));
-
-    uint32_t h[5] = {0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0};
-
-    for (size_t i = 0; i < msg.size(); i += 64) {
-        uint32_t w[80] = {0};
-        for (int j = 0; j < 16; ++j) {
-            w[j] = (static_cast<uint32_t>(msg[i + (j << 2)]) << 24) |
-                   (static_cast<uint32_t>(msg[i + (j << 2) + 1]) << 16) |
-                   (static_cast<uint32_t>(msg[i + (j << 2) + 2]) << 8) |
-                   static_cast<uint32_t>(msg[i + (j << 2) + 3]);
+    auto rotl = [](uint32_t v, int s) { return (v << s) | (v >> (32 - s)); };
+    std::vector<uint8_t> m(input.begin(), input.end());
+    uint64_t bits = static_cast<uint64_t>(m.size()) * 8;
+    m.push_back(0x80);
+    while (m.size() % 64 != 56) m.push_back(0x00);
+    for (int i = 7; i >= 0; --i) m.push_back(static_cast<uint8_t>(bits >> (i * 8)));
+    uint32_t h[5] = { 0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0 };
+    for (size_t offset = 0; offset < m.size(); offset += 64) {
+        uint32_t w[80] = { 0 };
+        for (int i = 0; i < 16; ++i) {
+            w[i] = (static_cast<uint32_t>(m[offset + i * 4]) << 24) | (static_cast<uint32_t>(m[offset + i * 4 + 1]) << 16) |
+                   (static_cast<uint32_t>(m[offset + i * 4 + 2]) << 8) | (static_cast<uint32_t>(m[offset + i * 4 + 3]));
         }
-        for (int j = 16; j < 80; ++j) {
-            w[j] = rotl(w[j - 3] ^ w[j - 8] ^ w[j - 14] ^ w[j - 16], 1);
-        }
-
+        for (int i = 16; i < 80; ++i) w[i] = rotl(w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16], 1);
         uint32_t a = h[0], b = h[1], c = h[2], d = h[3], e = h[4];
-
-        for (int j = 0; j < 80; ++j) {
+        for (int i = 0; i < 80; ++i) {
             uint32_t f, k;
-            if (j < 20) {
-                f = (b & c) | ((~b) & d);
-                k = 0x5A827999;
-            } else if (j < 40) {
-                f = b ^ c ^ d;
-                k = 0x6ED9EBA1;
-            } else if (j < 60) {
-                f = (b & c) | (b & d) | (c & d);
-                k = 0x8F1BBCDC;
-            } else {
-                f = b ^ c ^ d;
-                k = 0xCA62C1D6;
-            }
-            uint32_t t = rotl(a, 5) + f + e + k + w[j];
-            e = d; d = c; c = rotl(b, 30); b = a; a = t;
+            if (i < 20) { f = (b & c) | ((~b) & d); k = 0x5A827999; }
+            else if (i < 40) { f = b ^ c ^ d; k = 0x6ED9EBA1; }
+            else if (i < 60) { f = (b & c) | (b & d) | (c & d); k = 0x8F1BBCDC; }
+            else { f = b ^ c ^ d; k = 0xCA62C1D6; }
+            uint32_t temp = rotl(a, 5) + f + e + k + w[i];
+            e = d; d = c; c = rotl(b, 30); b = a; a = temp;
         }
-
         h[0] += a; h[1] += b; h[2] += c; h[3] += d; h[4] += e;
     }
-
-    std::string digest;
-    digest.reserve(20);
-    for (uint32_t v : h) {
-        digest.push_back(static_cast<char>(v >> 24));
-        digest.push_back(static_cast<char>(v >> 16));
-        digest.push_back(static_cast<char>(v >> 8));
-        digest.push_back(static_cast<char>(v));
-    }
-    return digest;
+    std::string out;
+    for (uint32_t val : h) { for (int i = 3; i >= 0; --i) out.push_back(static_cast<char>(val >> (i * 8))); }
+    return out;
 }
 
 static std::string makeWebSocketAccept(const std::string& key) {
@@ -578,7 +608,7 @@ private:
         }
 
         uint8_t opcode = header[0] & 0x0F;
-        if (opcode == 0x8) { // Close frame
+        if (opcode == 0x8) {
             return false;
         }
 
@@ -803,22 +833,12 @@ private:
     std::vector<std::string> entries_;
 };
 
-// This CoherenceEngine is different from the one in kkos_v2_unified.cpp
-// It's kept here for historical context of this specific variant.
-struct CoherenceMetricsV39 {
-    float coherence = 70.0f;
-    float stress_load = 10.0f;
-    float sustainability = 80.0f;
-    float thermal_stability = 90.0f;
-    float synchronization = 75.0f;
-};
-
-class CoherenceEngineV39 {
+class CoherenceEngine {
 public:
-    explicit CoherenceEngineV39(const CoherenceMetricsV39& metrics = {})
+    explicit CoherenceEngine(const CoherenceMetrics& metrics = {})
         : metrics_(metrics) {}
 
-    const CoherenceMetricsV39& metrics() const {
+    const CoherenceMetrics& metrics() const {
         return metrics_;
     }
 
@@ -841,7 +861,7 @@ public:
     }
 
     void reset() {
-        metrics_ = CoherenceMetricsV39();
+        metrics_ = CoherenceMetrics();
     }
 
     std::string state() const {
@@ -855,7 +875,7 @@ public:
     }
 
 private:
-    CoherenceMetricsV39 metrics_;
+    CoherenceMetrics metrics_;
 };
 
 struct KKOSState {
@@ -869,7 +889,7 @@ struct KKOSState {
     int mesh_peers = 4;
     float damping_capacity = 0.88f;
     float conductance_ms = 0.8f;
-    CoherenceEngineV39 engine; // Using the V39 specific engine
+    CoherenceEngine engine;
 };
 
 namespace ansi {
@@ -916,7 +936,7 @@ static void print_banner() {
 ██║  ██╗██║  ██╗╚██████╔╝███████║
 ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 
-KKOS v3.9 Production :: Unified Simulation Framework
+KKOS v2.0 :: Unified Simulation Framework
 )";
     std::cout << ansi::code(ansi::RESET) << "\n";
 }
@@ -940,7 +960,7 @@ static void print_status(const KKOSState& state) {
     std::cout << "----------------------\n\n";
 }
 
-static void print_coherence(const CoherenceEngineV39& engine) {
+static void print_coherence(const CoherenceEngine& engine) {
     std::cout << "\n[ COHERENCE ENGINE ]\n";
     std::cout << "System coherence score: "
               << std::fixed << std::setprecision(1)
@@ -1128,7 +1148,7 @@ int main() {
 
     std::unordered_map<std::string, std::function<void(const std::string&)>> commands;
 
-    commands["help"] = & {
+    commands["help"] = [&](const std::string&) {
         std::cout << "\nCommands:\n";
         std::cout << "  help\n";
         std::cout << "  inoculate\n";
@@ -1144,7 +1164,7 @@ int main() {
         std::cout << "  exit\n\n";
     };
 
-    commands["inoculate"] = & {
+    commands["inoculate"] = [&](const std::string&) {
         state.page1 = true;
         state.mycelial_core_online = true;
         state.gate_open = true;
@@ -1167,7 +1187,7 @@ int main() {
         }
     };
 
-    commands["collapse"] = & {
+    commands["collapse"] = [&](const std::string&) {
         std::cout << "\n[ EVENT ] Grid instability simulation initiated\n";
         std::this_thread::sleep_for(std::chrono::milliseconds(300));
         state.engine.collapse();
@@ -1185,7 +1205,7 @@ int main() {
         }
     };
 
-    commands["status"] = & {
+    commands["status"] = [&](const std::string& args) {
         if (args == "--json") {
             std::cout << serializeStatusJson(state) << "\n";
             logger.append("Displayed status as JSON");
@@ -1198,12 +1218,12 @@ int main() {
         }
     };
 
-    commands["coherence"] = & {
+    commands["coherence"] = [&](const std::string&) {
         print_coherence(state.engine);
         logger.append("Displayed coherence");
     };
 
-    commands["sustain"] = & {
+    commands["sustain"] = [&](const std::string&) {
         std::cout << "\n[ SOLARPUNK ] Regenerative recovery protocol active\n";
         state.engine.sustain();
         std::cout << "[ RECOVERY ] Coherence restored\n\n";
@@ -1213,7 +1233,7 @@ int main() {
         }
     };
 
-    commands["reset"] = & {
+    commands["reset"] = [&](const std::string&) {
         state = KKOSState();
         std::cout << "\n[ RESET ] System returned to PAGE-0\n\n";
         logger.append("System reset");
@@ -1222,7 +1242,7 @@ int main() {
         }
     };
 
-    commands["codex"] = & {
+    commands["codex"] = [&](const std::string& query) {
         if (query.empty()) {
             std::cout << "Usage: codex <search term>\n";
             return;
@@ -1243,10 +1263,10 @@ int main() {
         logger.append("Searched codex: " + query);
     };
 
-    commands["export"] = & {
+    commands["export"] = [&](const std::string& argument) {
         if (argument == "telemetry" || argument == "report") {
             fs::create_directories(config.reportsDir);
-            auto outputPath = fs::path(config.reportsDir) / ("telemetry_" + currentDateTimeForFile() + ".json");
+            auto outputPath = fs::path(config.reportsDir) / ("telemetry_" + filenameTimestamp() + ".json");
             std::ofstream out(outputPath);
             if (!out) {
                 std::cout << "Failed to write telemetry report.\n";
@@ -1263,7 +1283,7 @@ int main() {
 
         if (argument == "graph") {
             fs::create_directories(config.reportsDir);
-            auto outputPath = fs::path(config.reportsDir) / ("coherence_" + currentDateTimeForFile() + ".csv");
+            auto outputPath = fs::path(config.reportsDir) / ("coherence_" + filenameTimestamp() + ".csv");
             std::ofstream out(outputPath);
             if (!out) {
                 std::cout << "Failed to write graph report.\n";
@@ -1281,13 +1301,13 @@ int main() {
         std::cout << "Usage: export telemetry | export graph\n";
     };
 
-    commands["exit"] = & {
+    commands["exit"] = [&](const std::string&) {
         std::cout << "\nDecommissioning KKOS simulation.\n";
         running = false;
         logger.append("Exiting application");
     };
 
-    wsServer.setMessageHandler(& {
+    wsServer.setMessageHandler([&](const std::string& payload) {
         std::string command;
         std::string args;
         std::string token;

@@ -1,34 +1,26 @@
 {
+    "version": 4,
     "configurations": [
         {
-            "name": "KKOS-UCRT64",
+            "name": "UCRT64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${default}",
                 "${workspaceFolder}/Single-Exe-1.0.0/raylib-5.5/src",
-                "${workspaceFolder}/bin"
+                "${workspaceFolder}/Single-Exe-1.0.0/raylib-5.5/src/external/glfw/include",
+                "C:/msys64/mysys64_new/ucrt64/include"
             ],
             "defines": [
-                "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
-                "KKOS_VERSION_MAJOR=5",
-                "KKOS_VERSION_MINOR=2",
-                "KKOS_VERSION_PATCH=0",
                 "NOGDI",
-                "NOUSER"
+                "NOUSER",
+                "KKOS_VERSION_MAJOR=5",
+                "KKOS_VERSION_MINOR=2"
             ],
-            "compilerPath": "C:\\msys64\\mysys64_new\\ucrt64\\bin\\g++.exe",
-            "cStandard": "c17",
+            "compilerPath": "C:/msys64/mysys64_new/ucrt64/bin/g++.exe",
+            "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-x64",
-            "compilerArgs": [
-                "-std=c++17",
-                "-Wall",
-                "-Wextra",
-                "-Wpedantic"
-            ]
+            "intelliSenseMode": "windows-gcc-x64"
         }
-    ],
-    "version": 4
+    ]
 }

@@ -1,47 +1,83 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Build KKOS Unified v5.2.0",
-			"type": "shell",
-			"command": "cmd",
-			"args": [
-				"/c",
-				"BUILD.bat kkos"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Create KKOS desktop shortcut",
-			"type": "shell",
-			"command": "powershell.exe",
-			"args": [
-				"-NoProfile",
-				"-ExecutionPolicy",
-				"Bypass",
-				"-File",
-				"c:\\Users\\jaile\\Downloads\\KKOS_v5.2_Unified_Bundle\\desktop\\Create-Desktop-Shortcut.ps1"
-			],
-			"problemMatcher": [],
-			"group": "build"
-		},
-		{
-			"label": "Probe minimal C++ compile",
-			"type": "shell",
-			"command": "cmd",
-			"args": [
-				"/c",
-				"chcp 65001>nul && C:/msys64/mysys64_new/ucrt64/bin/g++.exe -std=c++17 tmp/compiler_probe.cpp -o tmp/compiler_probe.exe"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": [],
-			"group": "build"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build KKOS (UCRT64)",
+            "type": "shell",
+            "command": "C:/msys64/mysys64_new/ucrt64/bin/g++.exe",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-O0",
+                "-DKKOS_VERSION_STR=\\\"5.2.0\\\"",
+                "-DKKOS_VERSION_MAJOR=5",
+                "-DKKOS_VERSION_MINOR=2",
+                "-DKKOS_ODYSSEUS_URL=\\\"http://127.0.0.1:7000\\\"",
+                "-DUNICODE",
+                "-D_UNICODE",
+                "-DNOGDI",
+                "-DNOUSER",
+                "${workspaceFolder}/src/kkos_v520_unified.cpp",
+                "-o",
+                "${workspaceFolder}/bin/kkos_v520.exe",
+                "-lopengl32",
+                "-lgdi32",
+                "-lwinmm",
+                "-lpthread"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Debug build (no optimizations, full debug info)"
+        },
+        {
+            "label": "Build KKOS Release (UCRT64)",
+            "type": "shell",
+            "command": "C:/msys64/mysys64_new/ucrt64/bin/g++.exe",
+            "args": [
+                "-std=c++17",
+                "-O3",
+                "-ffast-math",
+                "-march=native",
+                "-DKKOS_VERSION_STR=\\\"5.2.0\\\"",
+                "-DKKOS_VERSION_MAJOR=5",
+                "-DKKOS_VERSION_MINOR=2",
+                "-DKKOS_ODYSSEUS_URL=\\\"http://127.0.0.1:7000\\\"",
+                "-DUNICODE",
+                "-D_UNICODE",
+                "-DNOGDI",
+                "-DNOUSER",
+                "${workspaceFolder}/src/kkos_v520_unified.cpp",
+                "-o",
+                "${workspaceFolder}/bin/kkos_v520.exe",
+                "-lopengl32",
+                "-lgdi32",
+                "-lwinmm",
+                "-lpthread"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "problemMatcher": ["$gcc"],
+            "detail": "Release build (full optimizations)"
+        },
+        {
+            "label": "Run Diagnostics",
+            "type": "shell",
+            "command": "${workspaceFolder}/BUILD.bat",
+            "args": ["diag"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "test",
+            "problemMatcher": [],
+            "detail": "Run BUILD.bat diag — compiler environment report"
+        }
+    ]
 }
