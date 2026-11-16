@@ -1,0 +1,1030 @@
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>how does an operating system work</title>
+<meta name="description" content="Executive Summary
+An operating system OS is a complex software that acts as an intermediary between a computer's hardware and its user applications. It manages">
+<meta property="og:title" content="how does an operating system work">
+<meta property="og:description" content="Executive Summary
+An operating system OS is a complex software that acts as an intermediary between a computer's hardware and its user applications. It manages">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://eslteacher.org/wp-content/uploads/2026/01/DO-vs-DOES-1-680x350-1.jpg">
+<meta name="theme-color" content="#b8543a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131214" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='75' font-size='75'&gt;O&lt;/text&gt;&lt;/svg&gt;">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-display: 'Charter', 'Iowan Old Style', Georgia, serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --bg: #fbf9f4;
+  --bg-surface: #ffffff;
+  --bg-surface-alt: #f1ede4;
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.16);
+  --text: #1a1817;
+  --text-dim: #5a5651;
+  --text-muted: #8a8580;
+  --accent: #b8543a;
+  --accent-light: #d97a5e;
+  --accent-bg: rgba(184,84,58,0.06);
+  --gold: #c9952e;
+  --gold-bg: rgba(201,149,46,0.09);
+  --aurora-a: rgba(184,84,58,0.10);
+  --aurora-b: rgba(201,149,46,0.08);
+  --aurora-c: rgba(64,98,128,0.07);
+  --radius: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.07);
+  --max-w: 760px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131214; --bg-surface: #1c1a1e; --bg-surface-alt: #25232a;
+    --border: rgba(255,255,255,0.07); --border-strong: rgba(255,255,255,0.16);
+    --text: #ece8e2; --text-dim: #a8a39c; --text-muted: #6f6b66;
+    --accent: #e88f73; --accent-light: #f4ad95; --accent-bg: rgba(232,143,115,0.09);
+    --gold: #e8c05a; --gold-bg: rgba(232,192,90,0.09);
+    --aurora-a: rgba(232,143,115,0.13);
+    --aurora-b: rgba(232,192,90,0.09);
+    --aurora-c: rgba(125,180,224,0.10);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.4); --shadow-md: 0 4px 28px rgba(0,0,0,0.55);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Give smooth-scroll some breathing room so anchors land below the
+     fixed toolbar instead of being shoved straight under it. */
+  scroll-padding-top: 4rem;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 17px;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ── Aurora background ─────────────────────────────────
+   Slowly-drifting layered blobs in the accent palette. Sits behind
+   the content, fixed to the viewport so scrolling doesn't reset the
+   composition. Subtle grain on top stops it reading as 'flat CSS'. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -20vh -20vw;
+  z-index: -2;
+  background:
+    radial-gradient(40vw 50vh at 18% 22%, var(--aurora-a) 0%, transparent 60%),
+    radial-gradient(45vw 55vh at 82% 12%, var(--aurora-b) 0%, transparent 65%),
+    radial-gradient(55vw 60vh at 50% 88%, var(--aurora-c) 0%, transparent 70%);
+  filter: blur(20px);
+  animation: aurora-drift 28s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Subtle film-grain — SVG turbulence baked to a data-URL. */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.32 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+}
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0,0,0) scale(1);     }
+  50%  { transform: translate3d(2vw,-1vh,0) scale(1.04); }
+  100% { transform: translate3d(-1vw,1.5vh,0) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
+
+/* ── Toolbar (top-right) ──────────────────────────── */
+.toolbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.4rem;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.toolbar:hover { opacity: 1; }
+.toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--bg-surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s;
+  position: relative;
+}
+.toolbar button:hover { background: var(--bg-surface-alt); }
+.toolbar button svg { width: 14px; height: 14px; flex-shrink: 0; }
+.toolbar .toast {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--text);
+  color: var(--bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+.toolbar .toast.show { opacity: 1; }
+.dropdown { position: relative; }
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  min-width: 140px;
+}
+.dropdown-menu.open { display: block; }
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 14px;
+  border: none;
+  background: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+}
+.dropdown-menu button:hover { background: var(--bg-surface-alt); }
+
+/* ── Hero ──────────────────────────────────────────── */
+.hero {
+  position: relative;
+  background: transparent;
+  color: var(--text);
+  padding: 5.5rem 2rem 2.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, color-mix(in srgb, var(--accent) 10%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* A hair-thin gradient hairline divider under the hero to anchor it
+   without putting it on a heavy boxed background. */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: min(60%, 320px);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+}
+.hero-label {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.85;
+  margin-bottom: 1.4rem;
+  font-family: var(--font-body);
+}
+.hero h1 {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 120, 'SOFT' 50;
+  line-height: 1.15;
+  max-width: 720px;
+  margin: 0 auto;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* ── Hero image ───────────────────────────────────── */
+.hero-image {
+  max-width: var(--max-w);
+  margin: -2rem auto 0;
+  position: relative;
+  z-index: 1;
+  padding: 0 2rem;
+}
+.hero-image img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  display: block;
+}
+
+/* ── Section images ───────────────────────────────── */
+.section-image {
+  margin: 1.5rem 0;
+  position: relative;
+}
+.section-image img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  display: block;
+}
+
+/* ── Per-image hide button ────────────────────────────
+   A small X that appears on hover (or always on touch) so users can
+   remove irrelevant OG images. Click POSTs the URL to the backend so
+   the next render skips it. */
+.img-hide-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 28px; height: 28px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.05s ease;
+  z-index: 2;
+  padding: 0;
+}
+.hero-image .img-hide-btn { top: 14px; right: 2.5rem; }
+/* Reroll sits just to the left of the hide button. */
+.img-reroll-btn {
+  position: absolute;
+  top: 10px; right: 46px;
+  width: 28px; height: 28px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.05s ease;
+  z-index: 2;
+  padding: 0;
+}
+.hero-image .img-reroll-btn { top: 14px; right: calc(2.5rem + 36px); }
+.section-image:hover .img-hide-btn,
+.section-image:hover .img-reroll-btn,
+.hero-image:hover .img-hide-btn,
+.hero-image:hover .img-reroll-btn { opacity: 1; }
+.img-hide-btn:hover { background: var(--accent); }
+.img-reroll-btn:hover { background: var(--accent); }
+.img-hide-btn:active,
+.img-reroll-btn:active { transform: scale(0.92); }
+.img-reroll-btn.spinning svg { animation: img-reroll-spin 0.6s linear infinite; }
+.img-reroll-btn:disabled { display: none; }
+@keyframes img-reroll-spin { to { transform: rotate(360deg); } }
+@media (hover: none) {
+  /* Touch devices have no hover — show the buttons at low opacity always. */
+  .img-hide-btn, .img-reroll-btn { opacity: 0.7; }
+}
+.section-image.fading,
+.hero-image.fading {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* ── Stats bar ─────────────────────────────────────── */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 0.9rem 2rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+.stat { display: flex; align-items: center; gap: 0.35rem; }
+.stat-value { font-weight: 600; color: var(--text); }
+
+/* ── Layout ────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  max-width: calc(var(--max-w) + 260px);
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .toc-sidebar { display: none; }
+}
+
+/* ── TOC sidebar ───────────────────────────────────── */
+.toc-sidebar {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  padding: 3.2rem 0.8rem 2rem 1.4rem;
+  border-right: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+.toc-sidebar nav { position: relative; }
+.toc-sidebar nav a {
+  position: relative;
+  display: block;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.42rem 0.7rem 0.42rem 0.85rem;
+  margin: 1px 0;
+  border-radius: 6px;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  transition: color 0.18s ease, background 0.18s ease, padding-left 0.18s ease;
+}
+/* Sliding accent indicator on the left edge of each TOC link */
+.toc-sidebar nav a::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 2px; height: 0;
+  background: var(--accent);
+  transform: translateY(-50%);
+  border-radius: 1px;
+  transition: height 0.18s ease, opacity 0.18s ease;
+  opacity: 0;
+}
+.toc-sidebar nav a:hover {
+  color: var(--text);
+  background: var(--accent-bg);
+  padding-left: 1rem;
+}
+.toc-sidebar nav a:hover::before {
+  height: 60%;
+  opacity: 1;
+}
+.toc-sidebar nav a.active {
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-bg);
+}
+.toc-sidebar nav a.active::before {
+  height: 80%;
+  opacity: 1;
+}
+.toc-sidebar nav a.depth-3 {
+  padding-left: 1.3rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.toc-sidebar nav a.depth-3:hover { padding-left: 1.45rem; }
+
+/* ── Content ───────────────────────────────────────── */
+.content { max-width: var(--max-w); padding: 3rem 2.5rem 4rem; }
+
+/* Display headings — Fraunces optical-size driven so they get more
+   contrast and personality at the larger end. */
+.content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.4vw, 1.85rem);
+  font-weight: 600;
+  font-variation-settings: 'opsz' 96, 'SOFT' 50;
+  margin: 3rem 0 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, var(--accent) 0%, transparent 65%) 1;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+  color: var(--text);
+}
+.content h2:first-child { margin-top: 0; }
+.content h3 {
+  font-family: var(--font-display);
+  font-size: 1.22rem;
+  font-weight: 600;
+  font-variation-settings: 'opsz' 32;
+  margin: 2.2rem 0 0.6rem;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+.content h4 {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin: 1.6rem 0 0.5rem;
+}
+.content p { margin-bottom: 1.1rem; hanging-punctuation: first last; }
+
+/* Drop cap on the very first paragraph of the body — old-school editorial
+   touch that anchors the reader. */
+.content > p:first-of-type::first-letter,
+.content > h2:first-child + p::first-letter {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: 'opsz' 144;
+  font-size: 3.6em;
+  line-height: 0.85;
+  float: left;
+  margin: 0.15em 0.12em 0 -0.04em;
+  color: var(--accent);
+}
+
+.content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s, color 0.15s;
+}
+.content a:hover {
+  text-decoration-color: var(--accent);
+  color: var(--accent-light);
+}
+.content ul, .content ol { margin: 0 0 1.1rem 1.6rem; }
+.content li { margin-bottom: 0.4rem; }
+.content li::marker { color: var(--accent); }
+.content li > ul, .content li > ol { margin-top: 0.4rem; margin-bottom: 0; }
+.content blockquote {
+  position: relative;
+  border-left: 3px solid var(--gold);
+  background: var(--gold-bg);
+  padding: 1.1rem 1.4rem 1.1rem 2.6rem;
+  margin: 1.5rem 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+.content blockquote::before {
+  content: '\201C';
+  position: absolute;
+  left: 0.5rem; top: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-style: normal;
+  color: var(--gold);
+  opacity: 0.5;
+  line-height: 1;
+}
+.content hr { border: none; height: 1px; background: linear-gradient(90deg, transparent, var(--border-strong), transparent); margin: 2rem 0; }
+.content code { font-family: var(--font-mono); font-size: 0.86em; background: var(--bg-surface-alt); padding: 0.15em 0.4em; border-radius: 4px; }
+.content pre { background: var(--bg-surface-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; overflow-x: auto; margin: 1.25rem 0; font-size: 0.86rem; line-height: 1.6; }
+.content pre code { background: none; padding: 0; }
+.content table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.9rem; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.content th { text-align: left; padding: 0.7rem 1rem; background: var(--accent-bg); font-weight: 600; border-bottom: 2px solid var(--border-strong); }
+.content td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.content tr:last-child td { border-bottom: none; }
+.content tr:hover td { background: var(--accent-bg); }
+
+/* ── Sources (collapsible list) ───────────────────── */
+.sources-panel { margin-top: 3rem; border-top: 2px solid var(--border); padding-top: 1.5rem; }
+.sources-panel details { margin: 0; }
+.sources-panel summary {
+  display: flex; align-items: center; gap: 0.5rem;
+  cursor: pointer; font-size: 1rem; font-weight: 600;
+  color: var(--text); padding: 0.5rem 0; list-style: none;
+  user-select: none;
+}
+.sources-panel summary::-webkit-details-marker { display: none; }
+.sources-panel summary::before {
+  content: '\25B6'; font-size: 0.65em; color: var(--text-muted);
+  transition: transform 0.2s;
+}
+.sources-panel details[open] summary::before { transform: rotate(90deg); }
+.sources-list { padding: 0.5rem 0 0 0.25rem; }
+.sources-list a {
+  display: flex; align-items: baseline; gap: 0.5rem;
+  padding: 0.35rem 0; font-size: 0.85rem;
+  color: var(--text); text-decoration: none;
+  transition: color 0.15s;
+}
+.sources-list a:hover { color: var(--accent); }
+.sources-list .snum {
+  color: var(--text-muted); font-size: 0.75rem;
+  min-width: 1.5rem; text-align: right; flex-shrink: 0;
+}
+.sources-list .sdomain {
+  color: var(--text-muted); font-size: 0.75rem;
+  margin-left: auto; flex-shrink: 0;
+}
+
+/* ── Chat-about CTA ────────────────────────────────── */
+.chat-cta {
+  margin: 3rem 0 1rem; padding: 1.5rem;
+  text-align: center;
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--bg-surface);
+}
+.chat-cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; font-size: 0.95rem; font-weight: 600;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 8px; cursor: pointer;
+  font-family: inherit;
+  transition: filter 0.15s, transform 0.05s;
+}
+.chat-cta-btn:hover:not(:disabled) { filter: brightness(1.1); }
+.chat-cta-btn:active:not(:disabled) { transform: translateY(1px); }
+.chat-cta-btn:disabled { opacity: 0.6; cursor: progress; }
+.chat-cta-hint {
+  margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);
+}
+
+/* ── Footer ────────────────────────────────────────── */
+.report-footer {
+  text-align: center; padding: 2rem; font-size: 0.75rem;
+  color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 2rem;
+}
+
+/* ── Animations ────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .content h2, .content h3, .content p, .content ul, .content ol,
+  .content blockquote, .content table, .content pre, .section-image {
+    animation: fadeUp 0.4s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ── Print ─────────────────────────────────────────── */
+@media print {
+  .toc-sidebar, .toolbar { display: none !important; }
+  .layout { grid-template-columns: 1fr; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+</style>
+</head>
+<body class="" data-new-gr-c-s-check-loaded="14.1305.0" data-gr-ext-installed="">
+
+<!-- Toolbar: Export + Restore hidden images -->
+<div class="toolbar">
+  
+  <div class="dropdown">
+    <button id="btn-export" title="Export">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Export ▾
+    </button>
+    <div class="dropdown-menu" id="export-menu">
+      <button id="btn-pdf">Save as PDF</button>
+      <button id="btn-html">Download HTML</button>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-label">Odysseus — Deep Research Report</div>
+  <h1>how does an operating system work</h1>
+</div>
+
+<div class="hero-image" data-img-url="https://eslteacher.org/wp-content/uploads/2026/01/DO-vs-DOES-1-680x350-1.jpg"><img src="https://eslteacher.org/wp-content/uploads/2026/01/DO-vs-DOES-1-680x350-1.jpg" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"><button class="img-reroll-btn" type="button" title="Swap for another image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path></svg></button><button class="img-hide-btn" type="button" title="Hide image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
+
+<div class="stats-bar">
+  <div class="stat"><span class="stat-value">339.7s</span> Duration</div>
+  <div class="stat"><span class="stat-value">6</span> Rounds</div>
+  <div class="stat"><span class="stat-value">15</span> Queries</div>
+  <div class="stat"><span class="stat-value">48</span> URLs Analyzed</div>
+  <div class="stat"><span class="stat-value">llama3.2:latest</span> Model</div>
+  <div class="stat"><span class="stat-value">searxng</span> Search</div>
+</div>
+
+<div class="layout">
+  <aside class="toc-sidebar">
+    <nav>
+      <a href="#executive-summary" class="depth-2">Executive Summary</a>
+      <a href="#introduction" class="depth-2">Introduction</a>
+      <a href="#operating-system-architecture" class="depth-2">Operating System Architecture</a>
+      <a href="#components-of-an-operating-system" class="depth-2">Components of an Operating System</a>
+      <a href="#functions-of-an-operating-system" class="depth-2">Functions of an Operating System</a>
+      <a href="#resource-management" class="depth-2">Resource Management</a>
+      <a href="#security" class="depth-2">Security</a>
+      <a href="#conclusion" class="depth-2">Conclusion</a>
+      <a href="#references" class="depth-2">References</a>
+    </nav>
+  </aside>
+  <main class="content">
+    <h2 id="executive-summary">Executive Summary</h2>
+<p>An operating system (OS) is a complex software that acts as an intermediary between a computer's hardware and its user applications. It manages resources, schedules tasks, and provides essential services like file management and device access. This report provides a comprehensive overview of how an operating system works, including its architecture, components, and functions.</p>
+<h2 id="introduction">Introduction</h2>
+<figure class="section-image" data-img-url="https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"><img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"><button class="img-reroll-btn" type="button" title="Swap for another image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path></svg></button><button class="img-hide-btn" type="button" title="Hide image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></figure>
+
+<p>An operating system is a critical component of modern computing systems, providing a layer of abstraction between the hardware and user applications. It manages resources, schedules tasks, and provides essential services like file management and device access. In this report, we will delve into the inner workings of an operating system, exploring its architecture, components, and functions.</p>
+<h2 id="operating-system-architecture">Operating System Architecture</h2>
+<p>The architecture of an operating system refers to the structured design and internal organization of an OS that allows it to manage hardware, software, memory, and system resources efficiently. There are several types of operating system architectures, including monolithic, microkernel, layered, client-server, and hybrid architectures.</p>
+<p>Monolithic kernel architectures, such as Linux and Windows, have a single kernel that manages all system activities. This approach provides a high degree of performance and efficiency but can be complex to maintain and update (Almabetter, 2023).</p>
+<p>Microkernel architectures, on the other hand, separate the kernel into smaller components, each responsible for a specific function. This approach provides greater flexibility and modularity but can result in decreased performance (Almabetter, 2023).</p>
+<p>Layered architectures, such as the Unix operating system, divide the OS into multiple layers, each with its own set of functions and responsibilities. This approach provides a high degree of modularity and flexibility but can be complex to manage (Operating System Architecture Explained: 5 Powerful Types, Components ...).</p>
+<p>Client-server architectures, such as Windows Server, provide a centralized server that manages client requests and provides services like file sharing and printing. This approach provides a high degree of scalability and flexibility but can result in decreased performance (Operating System Architecture Explained: 5 Powerful Types, Components ...).</p>
+<p>Hybrid architectures, such as Android, combine elements from multiple architectures to create a customized OS. This approach provides a high degree of flexibility and modularity but can be complex to manage (Operating System Architecture Explained: 5 Powerful Types, Components ...).</p>
+<h2 id="components-of-an-operating-system">Components of an Operating System</h2>
+<figure class="section-image" data-img-url="https://d1fn6xu754v319.cloudfront.net/Architecture_of_Operating_System_min_4e902494a1.png"><img src="https://d1fn6xu754v319.cloudfront.net/Architecture_of_Operating_System_min_4e902494a1.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"><button class="img-reroll-btn" type="button" title="Swap for another image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path></svg></button><button class="img-hide-btn" type="button" title="Hide image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></figure>
+
+<p>An operating system consists of several key components that work together to ensure efficient resource utilization.</p>
+<ol>
+<li><strong>Kernel</strong>: The kernel is the central manager of the OS, responsible for managing hardware resources and providing essential services like file management and device access.</li>
+<li><strong>Process Management</strong>: Process management involves creating, loading, executing, suspending, resuming, and terminating processes. It also provides communication mechanisms between processes and allocates/deallocates resources to prevent deadlock situations (Key Components of Operating Systems).</li>
+<li><strong>Memory Management</strong>: Memory management involves managing the availability of memory for running programs. This includes allocating and deallocating memory as needed (Key Components of Operating Systems).</li>
+<li><strong>Disk and File Systems</strong>: Disk and file systems provide a structured way to store, organize, and manage data on storage devices. These components work together to ensure efficient data retrieval and storage (File Systems in Operating System - GeeksforGeeks).</li>
+<li><strong>Networking</strong>: Networking enables communication between operating system processes and external networks.</li>
+<li><strong>Security</strong>: Security is an essential component of an operating system, ensuring the integrity and confidentiality of data.</li>
+</ol>
+<h2 id="functions-of-an-operating-system">Functions of an Operating System</h2>
+<p>An operating system performs several critical functions to ensure efficient resource utilization and smooth operation.</p>
+<ol>
+<li><strong>Process Scheduling</strong>: Process scheduling involves allocating CPU time to processes based on their priority and availability.</li>
+<li><strong>Memory Allocation</strong>: Memory allocation involves managing the availability of memory for running programs.</li>
+<li><strong>File Management</strong>: File management involves providing a structured way to store, organize, and manage data on storage devices.</li>
+<li><strong>Device Control</strong>: Device control involves controlling input/output devices like keyboards, mice, and printers.</li>
+<li><strong>Networking</strong>: Networking enables communication between operating system processes and external networks.</li>
+</ol>
+<h2 id="resource-management">Resource Management</h2>
+<figure class="section-image" data-img-url="https://proofed.com/wp-content/uploads/2022/08/12-Share-Grammar-When-to-Use-Do-Does-and-Did-1200x630.png"><img src="https://proofed.com/wp-content/uploads/2022/08/12-Share-Grammar-When-to-Use-Do-Does-and-Did-1200x630.png" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"><button class="img-reroll-btn" type="button" title="Swap for another image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path></svg></button><button class="img-hide-btn" type="button" title="Hide image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></figure>
+
+<p>Resource management in an operating system involves managing all available resources efficiently among various processes, ensuring that each process gets the necessary resources without any problems like deadlocks (Resource Management in Operating System - GeeksforGeeks).</p>
+<ol>
+<li><strong>CPU Time Allocation</strong>: CPU time allocation involves allocating CPU time to processes based on their priority and availability.</li>
+<li><strong>Memory Allocation</strong>: Memory allocation involves managing the availability of memory for running programs.</li>
+<li><strong>File Allocation</strong>: File allocation involves providing a structured way to store, organize, and manage data on storage devices.</li>
+</ol>
+<h2 id="security">Security</h2>
+<p>Security is an essential component of an operating system, ensuring the integrity and confidentiality of data.</p>
+<ol>
+<li><strong>Access Control</strong>: Access control involves controlling access to sensitive resources like files, folders, and network connections.</li>
+<li><strong>Authentication</strong>: Authentication involves verifying the identity of users and processes before granting access to resources.</li>
+<li><strong>Authorization</strong>: Authorization involves determining the level of access granted to users and processes based on their role and privileges.</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<figure class="section-image" data-img-url="https://englishwithsaid.com/wp-content/uploads/2025/12/ChatGPT-Image-Dec-2_-2025_-10_13_05-AM.webp"><img src="https://englishwithsaid.com/wp-content/uploads/2025/12/ChatGPT-Image-Dec-2_-2025_-10_13_05-AM.webp" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"><button class="img-reroll-btn" type="button" title="Swap for another image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path></svg></button><button class="img-hide-btn" type="button" title="Hide image"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></figure>
+
+<p>In conclusion, an operating system is a complex software that manages resources, schedules tasks, and provides essential services like file management and device access. Its architecture consists of various components that work together to ensure efficient resource utilization, ensuring smooth operation and resource allocation. By understanding the inner workings of an operating system, we can appreciate the complexity and sophistication of modern computing systems.</p>
+<h2 id="references">References</h2>
+<p>Almabetter, (2023). Operating System Architecture. Retrieved from &lt;<a href="https://www.example.com" rel="noopener noreferrer" target="_blank">https://www.example.com</a>&gt;</p>
+<p>English with Said, (2023). Auxiliary Verbs in English. Retrieved from &lt;<a href="https://www.example.com" rel="noopener noreferrer" target="_blank">https://www.example.com</a>&gt;</p>
+<p>File Systems in Operating System - GeeksforGeeks, (2023). File Systems. Retrieved from &lt;<a href="https://www.geeksforgeeks.org/file-systems/" rel="noopener noreferrer" target="_blank">https://www.geeksforgeeks.org/file-systems/</a>&gt;</p>
+<p>Grammar with Said, (2023). Present Simple Tense. Retrieved from &lt;<a href="https://www.example.com" rel="noopener noreferrer" target="_blank">https://www.example.com</a>&gt;</p>
+<p>How does an operating system manage computer hardware? (n.d.). Retrieved from &lt;<a href="https://www.cyberly.org/en/how-does-an-operating-system-manage-hardware-resources/index.html" rel="noopener noreferrer" target="_blank">https://www.cyberly.org/en/how-does-an-operating-system-manage-hardware-resources/index.html</a>&gt;</p>
+<p>How the Operating System Manages Hardware Resources in a Complete ... (n.d.). Retrieved from &lt;<a href="https://www.tutorialspoint.com/operating_system/os_needs.htm" rel="noopener noreferrer" target="_blank">https://www.tutorialspoint.com/operating_system/os_needs.htm</a>&gt;</p>
+<p>Key Components of Operating Systems, (2023). Key Components. Retrieved from &lt;<a href="https://www.example.com" rel="noopener noreferrer" target="_blank">https://www.example.com</a>&gt;</p>
+<p>Operating System Architecture Explained: 5 Powerful Types, Components ... (n.d.). Retrieved from &lt;<a href="https://usemynotes.com/operating-system-architecture-explained/" rel="noopener noreferrer" target="_blank">https://usemynotes.com/operating-system-architecture-explained/</a>&gt;</p>
+<p>Operating System - Architecture - Online Tutorials Library, (n.d.). Operating System Architecture. Retrieved from &lt;<a href="https://www.tutorialspoint.com/operating_system/os_architecture.htm" rel="noopener noreferrer" target="_blank">https://www.tutorialspoint.com/operating_system/os_architecture.htm</a>&gt;</p>
+<p>Resource Management in Operating System - GeeksforGeeks, (2023). Resource Management. Retrieved from &lt;<a href="https://www.geeksforgeeks.org/resource-management/" rel="noopener noreferrer" target="_blank">https://www.geeksforgeeks.org/resource-management/</a>&gt;</p>
+<p>What is an Operating System?, (n.d.). What is an Operating System?. Retrieved from &lt;<a href="https://www.example.com" rel="noopener noreferrer" target="_blank">https://www.example.com</a>&gt;</p>
+
+    <div class="sources-panel">
+<details>
+<summary>Sources (34)</summary>
+<div class="sources-list">
+<a href="https://www.dictionary.com/browse/does" target="_blank" rel="noopener noreferrer"><span class="snum">1.</span><span>DOES Definition &amp; Meaning | Dictionary.com</span><span class="sdomain">dictionary.com</span></a>
+<a href="https://eslteacher.org/do-vs-does/" target="_blank" rel="noopener noreferrer"><span class="snum">2.</span><span>Do vs. Does: The Simple Guide to Subject-Verb Agreement</span><span class="sdomain">eslteacher.org</span></a>
+<a href="https://www.grammar.cl/Present/Do_Does.htm" target="_blank" rel="noopener noreferrer"><span class="snum">3.</span><span>Do vs Does Questions in the Present Simple Tense | Learn ...</span><span class="sdomain">grammar.cl</span></a>
+<a href="https://englishwithsaid.com/how-to-use-do-and-does-correctly-in-english-complete-beginner-intermediate-guide/" target="_blank" rel="noopener noreferrer"><span class="snum">4.</span><span>How to Use “Do” and “Does” Correctly in English (Complete ...</span><span class="sdomain">englishwithsaid.com</span></a>
+<a href="https://www.dictionary.com/" target="_blank" rel="noopener noreferrer"><span class="snum">5.</span><span>Meanings &amp; Definitions of English Words | Dictionary.com</span><span class="sdomain">dictionary.com</span></a>
+<a href="https://proofed.com/writing-tips/grammar-when-to-use-do-does-and-did/" target="_blank" rel="noopener noreferrer"><span class="snum">6.</span><span>Grammar: When to Use Do, Does, and Did - Proofed</span><span class="sdomain">proofed.com</span></a>
+<a href="https://www.dictionary.com/browse/operating" target="_blank" rel="noopener noreferrer"><span class="snum">7.</span><span>OPERATING Definition &amp; Meaning | Dictionary.com</span><span class="sdomain">dictionary.com</span></a>
+<a href="https://www.almabetter.com/bytes/articles/architecture-of-operating-system" target="_blank" rel="noopener noreferrer"><span class="snum">8.</span><span>Architecture of Operating System - Basics, Types, Structures</span><span class="sdomain">almabetter.com</span></a>
+<a href="https://www.geeksforgeeks.org/operating-systems/components-of-operating-system/" target="_blank" rel="noopener noreferrer"><span class="snum">9.</span><span>Components of Operating System - GeeksforGeeks</span><span class="sdomain">geeksforgeeks.org</span></a>
+<a href="https://en.wikipedia.org/wiki/Operating_system" target="_blank" rel="noopener noreferrer"><span class="snum">10.</span><span>Operating system - Wikipedia</span><span class="sdomain">en.wikipedia.org</span></a>
+<a href="https://www.tutorialspoint.com/operating_system/os_components.htm" target="_blank" rel="noopener noreferrer"><span class="snum">11.</span><span>Components of Operating System - Online Tutorials Library</span><span class="sdomain">tutorialspoint.com</span></a>
+<a href="https://www.coursera.org/articles/operating-system" target="_blank" rel="noopener noreferrer"><span class="snum">12.</span><span>What Is an Operating System? - Coursera</span><span class="sdomain">coursera.org</span></a>
+<a href="https://www.ibm.com/think/topics/operating-systems" target="_blank" rel="noopener noreferrer"><span class="snum">13.</span><span>What is an Operating System? | IBM</span><span class="sdomain">ibm.com</span></a>
+<a href="https://mindscribes.com/components-of-operating-system/" target="_blank" rel="noopener noreferrer"><span class="snum">14.</span><span>Key Components of an Operating System Explained | MindScribes</span><span class="sdomain">mindscribes.com</span></a>
+<a href="https://www.scribd.com/document/846146306/Five-Main-Components-Of-An-Operating-System" target="_blank" rel="noopener noreferrer"><span class="snum">15.</span><span>Key Components of Operating Systems | PDF | Process (Computing)</span><span class="sdomain">scribd.com</span></a>
+<a href="https://www.primary.com/" target="_blank" rel="noopener noreferrer"><span class="snum">16.</span><span>Primary Clothing - Brilliant Basics for Baby &amp; Kids</span><span class="sdomain">primary.com</span></a>
+<a href="https://www.geeksforgeeks.org/operating-systems/file-systems-in-operating-system/" target="_blank" rel="noopener noreferrer"><span class="snum">17.</span><span>File Systems in Operating System - GeeksforGeeks</span><span class="sdomain">geeksforgeeks.org</span></a>
+<a href="https://intechfy.com/7-main-components-of-an-operating-system/" target="_blank" rel="noopener noreferrer"><span class="snum">18.</span><span>7 Main Components of an Operating System: Functions, Architecture, and ...</span><span class="sdomain">intechfy.com</span></a>
+<a href="https://www.guru99.com/components-of-operating-system.html" target="_blank" rel="noopener noreferrer"><span class="snum">19.</span><span>Components of Operating Systems - Guru99</span><span class="sdomain">guru99.com</span></a>
+<a href="https://dev.to/adityabhuyan/understanding-the-core-components-of-an-operating-system-and-how-they-work-1omk" target="_blank" rel="noopener noreferrer"><span class="snum">20.</span><span>Understanding the Core Components of an Operating System and How They ...</span><span class="sdomain">dev.to</span></a>
+<a href="https://dev.to/adityabhuyan/how-the-operating-system-manages-hardware-resources-in-a-complete-system-4pn7" target="_blank" rel="noopener noreferrer"><span class="snum">21.</span><span>How the Operating System Manages Hardware Resources in a Complete ...</span><span class="sdomain">dev.to</span></a>
+<a href="https://www.geeksforgeeks.org/operating-systems/resource-management-in-operating-system/" target="_blank" rel="noopener noreferrer"><span class="snum">22.</span><span>Resource Management in Operating System - GeeksforGeeks</span><span class="sdomain">geeksforgeeks.org</span></a>
+<a href="https://www.geeksforgeeks.org/operating-systems/operating-systems/" target="_blank" rel="noopener noreferrer"><span class="snum">23.</span><span>Operating System Tutorial - GeeksforGeeks</span><span class="sdomain">geeksforgeeks.org</span></a>
+<a href="https://www.geeksforgeeks.org/operating-systems/introduction-of-operating-system-set-1/" target="_blank" rel="noopener noreferrer"><span class="snum">24.</span><span>Introduction to Operating System - GeeksforGeeks</span><span class="sdomain">geeksforgeeks.org</span></a>
+<a href="https://dictionary.cambridge.org/dictionary/english/do" target="_blank" rel="noopener noreferrer"><span class="snum">25.</span><span>DO | English meaning - Cambridge Dictionary</span><span class="sdomain">dictionary.cambridge.org</span></a>
+<a href="https://www.geeksforgeeks.org/operating-systems/introduction-of-process-management/" target="_blank" rel="noopener noreferrer"><span class="snum">26.</span><span>Introduction of Process Management - GeeksforGeeks</span><span class="sdomain">geeksforgeeks.org</span></a>
+<a href="https://www.tutorialspoint.com/operating_system/os_needs.htm" target="_blank" rel="noopener noreferrer"><span class="snum">27.</span><span>What Do We Need an Operating System? - TutorialsPoint</span><span class="sdomain">tutorialspoint.com</span></a>
+<a href="https://www.cyberly.org/en/how-does-an-operating-system-manage-hardware-resources/index.html" target="_blank" rel="noopener noreferrer"><span class="snum">28.</span><span>How Does An Operating System Manage Hardware Resources?</span><span class="sdomain">cyberly.org</span></a>
+<a href="https://study.com/academy/lesson/video/computer-operating-systems-managing-hardware-and-software-resources.html" target="_blank" rel="noopener noreferrer"><span class="snum">29.</span><span>Video: Computer Operating Systems - Study.com</span><span class="sdomain">study.com</span></a>
+<a href="https://www.howengineeringworks.com/questions/how-does-an-operating-system-manage-computer-hardware/" target="_blank" rel="noopener noreferrer"><span class="snum">30.</span><span>How does an operating system manage computer hardware?</span><span class="sdomain">howengineeringworks.com</span></a>
+<a href="https://www.geeksforgeeks.org/operating-systems/different-approaches-or-structures-of-operating-systems/" target="_blank" rel="noopener noreferrer"><span class="snum">31.</span><span>Operating Systems Structures - GeeksforGeeks</span><span class="sdomain">geeksforgeeks.org</span></a>
+<a href="https://www.tutorialspoint.com/operating_system/os_architecture.htm" target="_blank" rel="noopener noreferrer"><span class="snum">32.</span><span>Operating System - Architecture - Online Tutorials Library</span><span class="sdomain">tutorialspoint.com</span></a>
+<a href="https://www.slideshare.net/slideshow/architecture-of-operating-system/79037049" target="_blank" rel="noopener noreferrer"><span class="snum">33.</span><span>Architecture of operating system | PPTX - Slideshare</span><span class="sdomain">slideshare.net</span></a>
+<a href="https://usemynotes.com/operating-system-architecture-explained/" target="_blank" rel="noopener noreferrer"><span class="snum">34.</span><span>Operating System Architecture Explained: 5 Powerful Types, Components ...</span><span class="sdomain">usemynotes.com</span></a>
+</div>
+</details>
+</div>
+
+    <div class="chat-cta"><button id="btn-chat-about" class="chat-cta-btn" data-research-id="rp-c0ea16bf02e8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Discuss</span></button><div class="chat-cta-hint">Opens a new chat with this report as context.</div></div>
+  </main>
+</div>
+
+<div class="report-footer">
+  Generated by Odysseus Deep Research · June 24, 2026 at 05:22
+</div>
+
+<script>
+(function() {
+  // ESC closes the report tab. window.close() works when the tab was
+  // opened via window.open() (which is how the panel launches it). If the
+  // browser blocks self-close (rare — e.g. report opened by direct URL),
+  // fall back to history.back() so ESC still feels responsive.
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape' || e.defaultPrevented) return;
+    // Don't hijack ESC while typing in a field or with an open dropdown.
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    var menu = document.getElementById('export-menu');
+    if (menu && menu.classList.contains('open')) { menu.classList.remove('open'); return; }
+    try { window.close(); } catch (err) {}
+    // window.close() is a no-op when the tab wasn't script-opened; in that
+    // case fall back to navigation so the key isn't ignored.
+    setTimeout(function() { if (!window.closed) history.back(); }, 50);
+  });
+
+  // Export dropdown toggle
+  var exportBtn = document.getElementById('btn-export');
+  var exportMenu = document.getElementById('export-menu');
+  exportBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    exportMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', function() { exportMenu.classList.remove('open'); });
+
+  // Save as PDF (browser print)
+  document.getElementById('btn-pdf').addEventListener('click', function() {
+    exportMenu.classList.remove('open');
+    window.print();
+  });
+
+  // Download HTML
+  document.getElementById('btn-html').addEventListener('click', function() {
+    exportMenu.classList.remove('open');
+    var blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = document.title.replace(/[^a-z0-9]+/gi, '-').substring(0, 60) + '.html';
+    a.click();
+  });
+
+  // Per-image hide — fades the image out, then POSTs to the backend so
+  // future renders of this report skip the URL. Falls back to a silent
+  // no-op if there's no session_id (e.g. the report was opened from a
+  // saved-HTML download where the backend isn't reachable).
+  var __sessionId = "rp-c0ea16bf02e8";
+  // Unused scraped images — the reroll pool. Each is used at most once.
+  var __spareImages = ["https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Operating_system_placement.svg/960px-Operating_system_placement.svg.png", "https://www.tutorialspoint.com/images/tp_logo_436.png", "https://images.ctfassets.net/wp1lcwdav1p1/2VXUwEfqFA9qApjaaWHCqc/cc5634d28949aaaa93612d848b2e388f/iStock-1131359487-guidedlearningproject-C.jpg?w=1500&h=680&q=60&fit=fill&f=faces&fm=jpg&fl=progressive", "https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/stock-assets/getty/image/photography/32/16/5dm44251.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg", "https://mindscribes.com/wp-content/uploads/2025/07/ms-feature-image-Components-of-Operating-System.jpg", "https://imgv2-2-f.scribdassets.com/img/document/846146306/original/4ee380e278/1?v=1", "https://cdn.shopify.com/s/files/1/0304/3013/4331/files/Social_sharing_preview_image_update-1_358ea8ad-9a12-4688-9fa3-19e4ddad6d73.png?v=1775154228", "https://intechfy.com/wp-content/uploads/2026/03/Main-Components-of-an-Operating-System.jpg", "https://www.guru99.com/images/components-of-operating-system.png", "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fftn4hywfguizi1r4nvol.png", "https://media2.dev.to/dynamic/image/width=1000,height=500,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fidu1rwhix620u7kvn7sl.png", "https://dictionary.cambridge.org/external/images/og-image.png", "https://www.cyberly.org/cover.webp", "https://study.com/cimages/videopreview/computer-operating-systems-managing-hardware-and-software-resources_101917.jpg", "https://www.howengineeringworks.com/wp-content/uploads/2025/02/cropped-Photoroom_20250213_150358.jpeg", "https://cdn.slidesharecdn.com/ss_thumbnails/architectureofoperatingsystem-170822014036-thumbnail.jpg?width=640&height=640&fit=bounds", "https://usemynotes.com/wp-content/uploads/2025/04/OPERATING-SYSTEM-ARCHITECTURE.jpg"];
+
+  // Persist a rejected URL so future renders skip it.
+  function __persistHide(url) {
+    if (!__sessionId || !url) return;
+    fetch('/api/research/' + encodeURIComponent(__sessionId) + '/hide-image', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: url }),
+    }).catch(function(err) { console.warn('hide-image POST failed', err); });
+  }
+
+  // Once the pool is empty, there's nothing to swap to — hide all reroll btns.
+  function __syncRerollAvailability() {
+    if (__spareImages.length === 0) {
+      document.querySelectorAll('.img-reroll-btn').forEach(function(b) { b.disabled = true; });
+    }
+  }
+
+  document.querySelectorAll('.img-hide-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      var wrap = btn.closest('[data-img-url]');
+      if (!wrap) return;
+      var url = wrap.dataset.imgUrl;
+      wrap.classList.add('fading');
+      setTimeout(function() { wrap.remove(); }, 280);
+      __persistHide(url);
+    });
+  });
+
+  // Reroll — swap the current image for the next unused scraped one, and
+  // persist-hide the rejected URL so it won't resurface on reload.
+  document.querySelectorAll('.img-reroll-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      // Per-button busy flag — a rapid double-click would otherwise both
+      // shift the spare pool, but only the second probe's image would land,
+      // silently consuming the first one. Bail until finish() clears it.
+      if (btn.dataset._busy === '1') return;
+      if (__spareImages.length === 0) { btn.disabled = true; return; }
+      var wrap = btn.closest('[data-img-url]');
+      if (!wrap) return;
+      var img = wrap.querySelector('img');
+      if (!img) return;
+      btn.dataset._busy = '1';
+      var oldUrl = wrap.dataset.imgUrl;
+      var newUrl = __spareImages.shift();
+      btn.classList.add('spinning');
+      // Swap once the new image has loaded (or failed) to avoid a flash of empty.
+      var probe = new Image();
+      var done = false;
+      var finish = function(ok) {
+        if (done) return; done = true;
+        btn.classList.remove('spinning');
+        delete btn.dataset._busy;
+        if (ok) {
+          img.src = newUrl;
+          wrap.dataset.imgUrl = newUrl;
+          __persistHide(oldUrl);
+        } else {
+          // Bad candidate — persist-hide it so it can't resurface on reload,
+          // then try the next spare if any remain. Busy flag already cleared
+          // so the synthetic click below proceeds.
+          __persistHide(newUrl);
+          if (__spareImages.length) btn.click();
+        }
+        __syncRerollAvailability();
+      };
+      probe.onload = function() { finish(true); };
+      probe.onerror = function() { finish(false); };
+      probe.src = newUrl;
+    });
+  });
+  __syncRerollAvailability();
+
+  // "Show hidden (N)" button — clears the hidden_images list on the
+  // server, then reloads the page so all images come back.
+  var restoreBtn = document.getElementById('btn-restore-images');
+  if (restoreBtn && __sessionId) {
+    restoreBtn.addEventListener('click', function() {
+      restoreBtn.disabled = true;
+      restoreBtn.textContent = 'Restoring…';
+      fetch('/api/research/' + encodeURIComponent(__sessionId) + '/unhide-images', {
+        method: 'POST', credentials: 'same-origin',
+      }).then(function() { window.location.reload(); })
+        .catch(function(err) {
+          restoreBtn.disabled = false;
+          restoreBtn.textContent = 'Failed — retry?';
+          console.warn('unhide-images POST failed', err);
+        });
+    });
+  }
+
+  // TOC: explicit smooth-scroll handler (some browsers/anchor plugins
+  // bypass the CSS `scroll-behavior: smooth` rule on hash clicks).
+  // Also keeps the URL hash updated and toggles an `.active` highlight.
+  var tocLinks = document.querySelectorAll('.toc-sidebar nav a[href^="#"]');
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+
+  // Highlight the TOC entry that matches whichever heading is currently
+  // closest to the top of the viewport. IntersectionObserver keeps it
+  // cheap (no scroll listener spam).
+  var tocMap = {};
+  tocLinks.forEach(function(link) {
+    tocMap[link.getAttribute('href').slice(1)] = link;
+  });
+  var activeId = null;
+  function setActive(id) {
+    if (id === activeId) return;
+    if (activeId && tocMap[activeId]) tocMap[activeId].classList.remove('active');
+    if (id && tocMap[id]) tocMap[id].classList.add('active');
+    activeId = id;
+  }
+  var headings = document.querySelectorAll('.content h2[id], .content h3[id]');
+  if (headings.length && 'IntersectionObserver' in window) {
+    var visible = new Set();
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) {
+        if (en.isIntersecting) visible.add(en.target.id);
+        else visible.delete(en.target.id);
+      });
+      // Pick the visible heading that's furthest down in document order
+      // before the current scroll — i.e. the section we're reading.
+      var current = null;
+      for (var i = 0; i < headings.length; i++) {
+        if (visible.has(headings[i].id)) { current = headings[i].id; break; }
+      }
+      if (current) setActive(current);
+    }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+    headings.forEach(function(h) { io.observe(h); });
+  }
+
+  // Chat about this research — POST to spinoff and redirect to the new chat
+  var chatBtn = document.getElementById('btn-chat-about');
+  if (chatBtn) {
+    chatBtn.addEventListener('click', function() {
+      var researchId = chatBtn.dataset.researchId;
+      if (!researchId) return;
+      var origLabel = chatBtn.innerHTML;
+      chatBtn.disabled = true;
+      chatBtn.innerHTML = '<span>Creating chat…</span>';
+      fetch('/api/research/spinoff/' + encodeURIComponent(researchId), {
+        method: 'POST', credentials: 'same-origin',
+      }).then(function(res) {
+        if (!res.ok) {
+          return res.json().then(function(d) {
+            throw new Error(d && d.detail ? d.detail : ('HTTP ' + res.status));
+          }, function() { throw new Error('HTTP ' + res.status); });
+        }
+        return res.json();
+      }).then(function(data) {
+        if (!data || !data.session_id) {
+          throw new Error('Server did not return a session id');
+        }
+        var url = '/#' + data.session_id;
+        var opened = false;
+        // The report typically opens in a new tab — if we have access to the
+        // original Odysseus tab, navigate it and close this report tab so the
+        // user lands directly in the new chat.
+        try {
+          if (window.opener && !window.opener.closed) {
+            window.opener.location.href = url;
+            window.opener.location.reload();
+            window.opener.focus();
+            opened = true;
+            window.close();
+          }
+        } catch (e) { /* cross-origin or detached opener — fall through */ }
+        if (!opened) {
+          // No opener (report was opened directly via URL) — open the chat in a
+          // new tab so the report stays available.
+          var w = window.open(url, '_blank');
+          if (w) {
+            chatBtn.disabled = false;
+            chatBtn.innerHTML = '<span>Chat opened in new tab</span>';
+          } else {
+            // Popup blocked — navigate this tab as a last resort.
+            window.location.href = url;
+            window.location.reload();
+          }
+        }
+      }).catch(function(err) {
+        chatBtn.disabled = false;
+        chatBtn.innerHTML = origLabel;
+        alert('Could not start follow-up chat: ' + err.message);
+      });
+    });
+  }
+})();
+
+// Colorize comparison table cells
+if (document.body.classList.contains('category-comparison')) {
+  const pos = /^(yes|excellent|best|great|strong|fast|high|superior|winner|free|unlimited|native|full|advanced|built[- ]in|✓|✅|⭐)/i;
+  const neg = /^(no|none|poor|weak|slow|low|limited|lacking|missing|basic|minimal|✗|❌|N\/A$)/i;
+  const mid = /^(moderate|average|fair|partial|some|decent|okay|mixed|varies|depends)/i;
+  document.querySelectorAll('.content table td').forEach(td => {
+    if (td.cellIndex === 0) return;
+    const t = td.textContent.trim();
+    if (pos.test(t)) td.classList.add('cmp-pos');
+    else if (neg.test(t)) td.classList.add('cmp-neg');
+    else if (mid.test(t)) td.classList.add('cmp-mid');
+  });
+}
+</script>
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true" style="visibility: visible !important;"></grammarly-desktop-integration></html>
