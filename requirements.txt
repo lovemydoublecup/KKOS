@@ -1,0 +1,55 @@
+# KKOS v5.2.0 — Odysseus Core Dependencies
+# Kurfew Kult Operating System
+#
+# Install: pip install -r requirements.txt
+# Optional features: see requirements-optional.txt
+
+fastapi
+starlette
+uvicorn
+python-multipart
+python-dotenv
+httpx
+pydantic>=2.0
+pydantic-settings>=2.0
+SQLAlchemy
+pypdf
+beautifulsoup4
+charset-normalizer
+numpy
+
+# Vector store + local embeddings for RAG, semantic memory, and tool selection.
+# Core agent paths depend on these; app degrades to keyword fallback if missing.
+# Use chromadb (full server) NOT chromadb-client — PersistentClient requires it.
+chromadb
+fastembed
+
+youtube-transcript-api
+
+# Markdown rendering for research reports (src/visual_report.py)
+markdown
+
+# HTML sanitizer for rendered research reports (src/visual_report.py).
+# LLM output over crawled pages is untrusted; allowlist-sanitized before display.
+nh3
+
+# Calendar .ics import/export (routes/calendar_routes.py)
+icalendar
+
+# Recurrence rule expansion for calendar events.
+# Explicit dep even though caldav pulls it transitively.
+python-dateutil
+
+# CalDAV sync (src/caldav_sync.py) — Radicale, Nextcloud, Apple, Fastmail
+caldav
+
+cryptography
+bcrypt
+mcp
+pyotp
+qrcode[pil]
+croniter
+
+# Testing
+pytest
+pytest-asyncio

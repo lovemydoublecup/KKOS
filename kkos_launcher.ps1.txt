@@ -1,0 +1,115 @@
+# KKOS v5.2.0 — Kurfew Kult Terminal
+
+$ErrorActionPreference = "Stop"
+$Root = Get-Location
+$Launcher = Join-Path $Root "kkos_launcher.ps1"
+
+function Header {
+    Clear-Host
+    Write-Host "==========================================" -ForegroundColor Magenta
+    Write-Host "        KKOS v5.2.0 — Kult Terminal        " -ForegroundColor DarkMagenta
+    Write-Host "   LOVEMYDOUBLECUP // ODYSSEUS // HERMES   " -ForegroundColor Magenta
+    Write-Host "==========================================" -ForegroundColor Magenta
+}
+
+function Prompt {
+    Write-Host "`n[KKOS@" -NoNewline -ForegroundColor Cyan
+    Write-Host (Get-Date).ToString("HH:mm:ss") -NoNewline -ForegroundColor Cyan
+    Write-Host "] :: " -NoNewline
+    return " "   # override PowerShell default prompt
+}
+
+function Help {
+    Write-Host "`nCommands:" -ForegroundColor Yellow
+    Write-Host "  core build"
+    Write-Host "  core run"
+    Write-Host "  odys native [port]"
+    Write-Host "  odys nvidia"
+    Write-Host "  odys amd"
+    Write-Host "  odys cpu"
+    Write-Host "  hermes sync"
+    Write-Host "  status"
+    Write-Host "  clear"
+    Write-Host "  exit"
+}
+
+function Launch($Mode, $Port=7000) {
+    if (-not (Test-Path $Launcher)) {
+        Write-Host "Launcher missing: $Launcher" -ForegroundColor Red
+        return
+    }
+    & $Launcher -Mode $Mode -Port $Port
+}
+
+function Status {
+    Write-Host "`n=== KKOS Status ===" -ForegroundColor Yellow
+
+    if (Test-Path "$Root/bin/kkos_v520.exe") {
+        Write-Host "Core Engine: OK" -ForegroundColor Green
+    } else {
+        Write-Host "Core Engine: MISSING" -ForegroundColor Red
+    }
+
+    if (Test-Path "$Root/hermes-agent-main/hermes-agent-main") {
+        Write-Host "Hermes Agent: OK" -ForegroundColor Green
+    } else {
+        Write-Host "Hermes Agent: MISSING" -ForegroundColor Yellow
+    }
+
+    foreach ($f in "docker-compose.nvidia.yml","docker-compose.amd.yml","docker-compose.cpu.yml") {
+        if (Test-Path "$Root/$f") {
+            Write-Host "$f: OK" -ForegroundColor Green
+        } else {
+            Write-Host "$f: MISSING" -ForegroundColor Yellow
+        }
+    }
+}
+
+Header
+Help
+
+while ($true) {
+    Prompt
+    $line = Read-Host
+    if (-not $line) { continue }
+
+    $parts = $line.Split(" ")
+    $cmd = $parts[0].ToLower()
+
+    switch ($cmd) {
+        "help"  { Help }
+        "clear" { Header }
+        "exit"  { break }
+
+        "core" {
+            if ($parts[1] -eq "build") { Launch "native" 0 }
+            elseif ($parts[1] -eq "run") { Launch "native" 7000 }
+        }
+
+        "odys" {
+            switch ($parts[1]) {
+                "native" {
+                    $port = 7000
+                    if ($parts.Length -ge 3) { $port = [int]$parts[2] }
+                    Launch "native" $port
+                }
+                "nvidia" { Launch "docker-nvidia" }
+                "amd"    { Launch "docker-amd" }
+                "cpu"    { Launch "docker-cpu" }
+            }
+        }
+
+        "hermes" {
+            if ($parts[1] -eq "sync") {
+                $script = "$Root/hermes-agent-main/hermes-agent-main/scripts/install.ps1"
+                if (Test-Path $script) {
+                    & $script -SkipSetup -NonInteractive
+                }
+            }
+        }
+
+        "status" { Status }
+
+        default { Write-Host "Unknown command" -ForegroundColor Yellow }
+    }
+}

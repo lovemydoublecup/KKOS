@@ -1,0 +1,272 @@
+You’ve been wrestling this into shape for a while—let’s turn it into something clean, repeatable, and “drop‑into‑Word” ready.
+
+Below is a single document you can paste into Word and save as KKOS_MSYS2_VSCode_Setup.docx and drop into the bundle.
+
+KKOS v4.5 – MSYS2 UCRT64 + VS Code Setup Guide
+“This bundle contains a runnable C++ simulation framework for KKOS v2. It is a terminal-based prototype, not a real operating system or kernel.”
+
+This document explains:
+
+How to fix your MSYS2 environment
+
+How to build KKOS with the correct UCRT64 toolchain
+
+How to configure VS Code (tasks + launch) for GDB debugging
+
+1. Fixing the MSYS2 UCRT64 environment
+1.1 Install MSYS2 and UCRT64 toolchain
+Install MSYS2 from the official site. 
+
+Run the MSYS2 installer and let it finish.
+
+When it opens a terminal, close it and then open the MSYS2 UCRT64 terminal (not MSYS, not MINGW64).
+
+In the UCRT64 terminal, run:
+
+bash
+pacman -Syu
+pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+This installs:
+
+g++ (UCRT64)
+
+gdb (UCRT64)
+
+runtime libraries (UCRT64) 
+
+1.2 Add UCRT64 to Windows PATH
+Open Windows Settings → search for “Edit environment variables for your account”. 
+
+Under User variables, select Path → Edit.
+
+Click New and add:
+
+text
+C:\msys64\ucrt64\bin
+Click OK to close all dialogs.
+
+Close and reopen any terminals or VS Code so the new PATH is picked up.
+
+You can verify from Command Prompt:
+
+cmd
+g++ --version
+gdb --version
+You should see UCRT64 versions.
+
+2. Correct UCRT64 build commands for KKOS
+The bundle’s README states that the canonical runtime entry point is:
+
+“src/kkos_v2_unified.cpp — current runtime entry point and canonical build target.”
+
+We’ll build that into bin\kkos_v2.exe using UCRT64 g++.
+
+2.1 Build from MSYS2 UCRT64 terminal
+From the MSYS2 UCRT64 terminal:
+
+bash
+cd /c/Users/jaile/Downloads/KKOS_v4.5_Unified_Bundle
+
+mkdir -p bin
+
+g++ -std=c++17 "src/kkos_v2_unified.cpp" -o bin/kkos_v2.exe
+Optional variants (matching the README):
+
+bash
+# Sharded WebSocket variant
+g++ -std=c++17 "src/kkos_v43_sharded.cpp" -o bin/kkos_v43.exe
+
+# v4.5 alias build
+g++ -std=c++17 "src/kkos_v43_sharded.cpp" -o bin/kkos_v45.exe
+2.2 Ensure runtime DLLs are available
+If you see loader errors like 0xc0000139, it usually means required DLLs are missing.
+
+From C:\msys64\ucrt64\bin, ensure these are either:
+
+On PATH (recommended), or
+
+Copied into KKOS_v4.5_Unified_Bundle\bin:
+
+libstdc++-6.dll
+
+libgcc_s_seh-1.dll
+
+libwinpthread-1.dll
+
+Once these are available, bin\kkos_v2.exe should run cleanly from Command Prompt:
+
+cmd
+cd C:\Users\jaile\Downloads\KKOS_v4.5_Unified_Bundle
+bin\kkos_v2.exe
+3. Full VS Code + MSYS2 UCRT64 setup
+This section defines three files inside .vscode:
+
+launch.json – debugger configuration (GDB)
+
+tasks.json – build tasks (UCRT64 g++)
+
+c_cpp_properties.json – IntelliSense configuration
+
+The app loads optional settings from config.json and writes logs to logs/kkos_v2.log and telemetry to reports/.
+
+3.1 .vscode/launch.json
+This uses cppdbg with GDB from UCRT64.
+
+json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "KKOS v4.5 (UCRT64 GDB)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/kkos_v2.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+            "preLaunchTask": "Build KKOS (UCRT64)"
+        }
+    ]
+}
+Important:
+
+The property name is miDebuggerPath (lowercase mi), which is what the C/C++ extension expects. 
+
+There must be only one JSON object in this file—no extra braces, no tasks content.
+
+3.2 .vscode/tasks.json
+This builds src/kkos_v2_unified.cpp into bin\kkos_v2.exe using UCRT64 g++.
+
+json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build KKOS (UCRT64)",
+            "type": "shell",
+            "command": "C:/msys64/ucrt64/bin/g++.exe",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "${workspaceFolder}/src/kkos_v2_unified.cpp",
+                "-o",
+                "${workspaceFolder}/bin/kkos_v2.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
+    ]
+}
+You can now press Ctrl+Shift+B in VS Code to build KKOS.
+
+3.3 .vscode/c_cpp_properties.json
+This configures IntelliSense to match the UCRT64 toolchain. 
+
+json
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "UCRT64",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ]
+}
+4. End‑to‑end workflow
+4.1 Build
+In VS Code:
+
+Open the folder:
+C:\Users\jaile\Downloads\KKOS_v4.5_Unified_Bundle
+
+Press Ctrl+Shift+B → choose “Build KKOS (UCRT64)”.
+
+This runs the g++ command and produces:
+
+text
+bin\kkos_v2.exe
+4.2 Run from terminal
+From VS Code integrated terminal or Command Prompt:
+
+cmd
+bin\kkos_v2.exe
+Inside the app, you can use commands like:
+
+text
+help
+status
+status --json
+collapse
+inoculate
+exit
+4.3 Debug with GDB in VS Code
+Go to Run and Debug (Ctrl+Shift+D).
+
+Select “KKOS v4.5 (UCRT64 GDB)”.
+
+Press F5 to start debugging.
+
+Set breakpoints in src/kkos_v2_unified.cpp and step through the simulation.
+
+If you ever see:
+
+“Property miDebuggerPath is not allowed” → your launch.json is malformed or using the wrong "type" (must be cppdbg). 
+
+0xc0000139 → missing or mismatched runtime DLLs; re-check UCRT64 PATH and DLLs in bin.
+
+5. Notes on config.json
+Your config.json should be a single valid JSON object. For example:
+
+json
+{
+  "baseSynchronization": 0.85,
+  "baseStability": 0.80,
+  "baseSustainability": 0.95,
+  "baseRuntimeIntegrity": 0.90,
+  "baseStressLoad": 0.10,
+  "baseEntropy": 0.05,
+  "baseErrorPropagation": 0.05,
+  "collapseThreshold": 35,
+  "recoveryThreshold": 55,
+  "kidMode": false,
+  "expertMode": true,
+  "sustainBoostFactor": 1.75
+}
+Avoid concatenating multiple JSON objects in the same file (e.g., }{), as that will break parsing.
+
+6. How to turn this into a .docx
+Open Microsoft Word.
+
+Create a new blank document.
+
+Paste everything from “KKOS v4.5 – MSYS2 UCRT64 + VS Code Setup Guide” down to here.
+
+Save as:
+
+text
+docs/KKOS_MSYS2_VSCode_Setup.docx
+Add it to your bundle alongside README.txt and KKOS_Codex_Unified.md.
+
+If you want, next step we can tighten this specifically around v43/v45 sharded builds or add a troubleshooting section for the most cursed errors you’ve hit so far.

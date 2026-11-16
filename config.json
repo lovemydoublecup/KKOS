@@ -1,0 +1,21 @@
+{
+  "baseSynchronization": 0.92,
+  "baseStability": 0.88,
+  "baseSustainability": 0.95,
+  "baseRuntimeIntegrity": 0.94,
+  "baseStressLoad": 0.05,
+  "baseEntropy": 0.05,
+  "baseErrorPropagation": 0.05,
+  "collapseThreshold": 25,
+  "recoveryThreshold": 45,
+  "kidMode": false,
+  "expertMode": true,
+  "sustainBoostFactor": 1.75,
+  "snapshotInterval": 10,
+  "maxSnapshotCache": 100,
+  "telemetryPort": 8080,
+  "telemetryHz": 60,
+  "shardCount": 8,
+  "logPath": "logs/kkos_unified.log",
+  "reportsDir": "reports"
+}

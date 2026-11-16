@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "KKOS Engine",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/kkos_v520.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build KKOS Unified v5.2.0",
+            "stopAtEntry": false,
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/msys64/mysys64_new/ucrt64/bin/gdb.exe",
+            "environment": [
+                {
+                    "name": "PATH",
+                    "value": "C:/msys64/mysys64_new/ucrt64/bin;${env:PATH}"
+                }
+            ]
+        },
+        {
+            "name": "Odysseus Backend",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/odysseus/app.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/odysseus"
+        }
+    ]
+}

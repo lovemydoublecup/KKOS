@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "producer": "Java AppCAT CLI",
+  "metadata": {
+    "analysisStartTime": "2026-05-31T00:18:16.959Z",
+    "analysisEndTime": "1970-01-01T00:00:00.000Z",
+    "privacyMode": "Protected",
+    "privacyModeHelpUrl": "https://aka.ms/appmod-privacy-mode",
+    "targetIds": [
+      "azure-aks",
+      "azure-appservice",
+      "azure-container-apps"
+    ],
+    "targetDisplayNames": [
+      "Azure Kubernetes Service",
+      "Azure App Service",
+      "Azure Container Apps"
+    ],
+    "capabilities": [
+      "openjdk25"
+    ],
+    "os": [
+      "windows",
+      "linux"
+    ],
+    "id": "20260530191816",
+    "name": "Report_20260530191816",
+    "status": "running",
+    "domains": [
+      "java-upgrade",
+      "cloud-readiness",
+      "security"
+    ],
+    "mode": "issue-only",
+    "minimumCveSeverity": "high"
+  },
+  "summary": {},
+  "projects": [],
+  "rules": {},
+  "security": []
+}

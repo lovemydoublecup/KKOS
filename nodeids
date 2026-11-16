@@ -1,0 +1,9 @@
+[
+  "tests/test_cleanup_owner_scope.py::test_apply_owner_filter_excludes_cross_owner_rows",
+  "tests/test_cleanup_owner_scope.py::test_apply_owner_filter_none_bypasses_filter_for_single_user_mode",
+  "tests/test_cleanup_owner_scope.py::test_apply_owner_filter_strict_equality_no_null_predicate",
+  "tests/test_cleanup_owner_scope.py::test_cleanup_route_passes_caller_identity_as_owner",
+  "tests/test_cleanup_owner_scope.py::test_preview_route_passes_caller_identity_as_owner",
+  "tests/test_cleanup_service_utcnow.py::test_cutoff_math_stays_naive_and_comparable",
+  "tests/test_cleanup_service_utcnow.py::test_utcnow_returns_naive_utc"
+]

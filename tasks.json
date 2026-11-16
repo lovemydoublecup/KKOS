@@ -1,0 +1,47 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build KKOS Unified v5.2.0",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"BUILD.bat kkos"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Create KKOS desktop shortcut",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"c:\\Users\\jaile\\Downloads\\KKOS_v5.2_Unified_Bundle\\desktop\\Create-Desktop-Shortcut.ps1"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Probe minimal C++ compile",
+			"type": "shell",
+			"command": "cmd",
+			"args": [
+				"/c",
+				"chcp 65001>nul && C:/msys64/mysys64_new/ucrt64/bin/g++.exe -std=c++17 tmp/compiler_probe.cpp -o tmp/compiler_probe.exe"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

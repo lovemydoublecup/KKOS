@@ -1,0 +1,23 @@
+{
+    "files.readonlyInclude": {
+        "{**/.c4z/.extsrcs/*.PROTSYM.cbl,**/.c4z/.extsrcs/*.PROTSYM.listing}": true
+    },
+    "geminicodeassist.agentDebugMode": true,
+    "geminicodeassist.agentYoloMode": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.cpptools",
+    "C_Cpp.default.compilerPath": "C:/msys64/mysys64_new/ucrt64/bin/g++.exe",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/Single-Exe-1.0.0/raylib-5.5/src"
+    ],
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "files.exclude": {
+        "bin/": true,
+        "logs/": true,
+        "reports/": true
+    },
+    "search.exclude": {
+        "bin/": true,
+        "logs/": true
+    }
+}
