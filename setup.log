@@ -1,0 +1,858 @@
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+The system cannot find the path specified.
+Collecting fastapi (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 1))
+  Downloading fastapi-0.139.0-py3-none-any.whl.metadata (26 kB)
+Collecting starlette (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 2))
+  Using cached starlette-1.3.1-py3-none-any.whl.metadata (6.4 kB)
+Collecting uvicorn (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 3))
+  Downloading uvicorn-0.51.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting python-multipart (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 4))
+  Using cached python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Collecting python-dotenv (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 5))
+  Using cached python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+Collecting httpx (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 6))
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting pydantic>=2.0 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 7))
+  Using cached pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+Collecting pydantic-settings>=2.0 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 8))
+  Using cached pydantic_settings-2.14.2-py3-none-any.whl.metadata (3.4 kB)
+Collecting SQLAlchemy (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 9))
+  Downloading sqlalchemy-2.0.51-py3-none-any.whl.metadata (9.5 kB)
+Collecting pypdf (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 10))
+  Using cached pypdf-6.14.2-py3-none-any.whl.metadata (7.2 kB)
+Collecting beautifulsoup4 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 11))
+  Using cached beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+Collecting charset-normalizer (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 12))
+  Downloading charset_normalizer-3.4.9-py3-none-any.whl.metadata (41 kB)
+Collecting numpy (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 13))
+  Downloading numpy-2.5.1.tar.gz (20.8 MB)
+     ---------------------------------------- 20.8/20.8 MB 37.6 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  installing backend dependencies for numpy did not run successfully.
+  exit code: 1
+  
+  [133 lines of output]
+  Collecting ninja>=1.8.2
+    Downloading ninja-1.13.0.tar.gz (242 kB)
+    Installing build dependencies: started
+    Installing build dependencies: finished with status 'done'
+    Getting requirements to build wheel: started
+    Getting requirements to build wheel: finished with status 'done'
+    Installing backend dependencies: started
+    Installing backend dependencies: finished with status 'error'
+    error: subprocess-exited-with-error
+  
+    installing backend dependencies for ninja did not run successfully.
+    exit code: 1
+  
+    [115 lines of output]
+    Collecting hatch-fancy-pypi-readme>=23.2
+      Downloading hatch_fancy_pypi_readme-25.1.0-py3-none-any.whl.metadata (2.0 kB)
+    Collecting cmake>=3.15
+      Downloading cmake-4.4.0.tar.gz (34 kB)
+      Installing build dependencies: started
+      Installing build dependencies: finished with status 'done'
+      Getting requirements to build wheel: started
+      Getting requirements to build wheel: finished with status 'done'
+      Preparing metadata (pyproject.toml): started
+      Preparing metadata (pyproject.toml): finished with status 'done'
+    Collecting setuptools-scm
+      Downloading setuptools_scm-10.2.0-py3-none-any.whl.metadata (6.6 kB)
+    Collecting hatchling (from hatch-fancy-pypi-readme>=23.2)
+      Downloading hatchling-1.31.0-py3-none-any.whl.metadata (3.8 kB)
+    Collecting vcs-versioning<3,>=2.0.0.dev0 (from setuptools-scm)
+      Downloading vcs_versioning-2.2.2-py3-none-any.whl.metadata (1.7 kB)
+    Collecting packaging>=20 (from setuptools-scm)
+      Using cached packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+    Collecting setuptools (from setuptools-scm)
+      Downloading setuptools-83.0.0-py3-none-any.whl.metadata (6.6 kB)
+    Collecting pathspec>=0.10.1 (from hatchling->hatch-fancy-pypi-readme>=23.2)
+      Using cached pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+    Collecting pluggy>=1.0.0 (from hatchling->hatch-fancy-pypi-readme>=23.2)
+      Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+    Collecting trove-classifiers (from hatchling->hatch-fancy-pypi-readme>=23.2)
+      Downloading trove_classifiers-2026.6.1.19-py3-none-any.whl.metadata (2.3 kB)
+    Downloading hatch_fancy_pypi_readme-25.1.0-py3-none-any.whl (10 kB)
+    Downloading setuptools_scm-10.2.0-py3-none-any.whl (27 kB)
+    Downloading vcs_versioning-2.2.2-py3-none-any.whl (108 kB)
+    Using cached packaging-26.2-py3-none-any.whl (100 kB)
+    Downloading hatchling-1.31.0-py3-none-any.whl (77 kB)
+    Using cached pathspec-1.1.1-py3-none-any.whl (57 kB)
+    Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+    Downloading setuptools-83.0.0-py3-none-any.whl (1.0 MB)
+       ---------------------------------------- 1.0/1.0 MB 17.7 MB/s  0:00:00
+    Downloading trove_classifiers-2026.6.1.19-py3-none-any.whl (14 kB)
+    Building wheels for collected packages: cmake
+      Building wheel for cmake (pyproject.toml): started
+      Building wheel for cmake (pyproject.toml): finished with status 'error'
+      error: subprocess-exited-with-error
+  
+      Building wheel for cmake (pyproject.toml) did not run successfully.
+      exit code: 1
+  
+      [60 lines of output]
+      *** scikit-build-core 1.0.3 using CMake 4.4.0 (wheel)
+      *** Configuring CMake...
+      Traceback (most recent call last):
+        File "C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\venv\lib\python3.14\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 389, in <module>
+          main()
+          ~~~~^^
+        File "C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\venv\lib\python3.14\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 373, in main
+          json_out["return_val"] = hook(**hook_input["kwargs"])
+                                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\venv\lib\python3.14\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 280, in build_wheel
+          return _build_backend().build_wheel(
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+              wheel_directory, config_settings, metadata_directory
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          )
+          ^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-install-4s5ibeun\cmake_06c2b3ee6c3b47309bc9a33bae186f5e\_build_backend\backend.py", line 159, in build_wheel
+          return _orig.build_wheel(wheel_directory, config_settings, metadata_directory)
+                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-03xjk73n\overlay\lib\python3.14\site-packages\scikit_build_core\build\__init__.py", line 53, in build_wheel
+          return _build_wheel_impl(
+                 ~~~~~~~~~~~~~~~~~^
+              wheel_directory,
+              ^^^^^^^^^^^^^^^^
+          ...<2 lines>...
+              editable=False,
+              ^^^^^^^^^^^^^^^
+          ).wheel_filename
+          ^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-03xjk73n\overlay\lib\python3.14\site-packages\scikit_build_core\build\wheel.py", line 267, in _build_wheel_impl
+          return _build_wheel_impl_impl(
+              wheel_directory,
+          ...<5 lines>...
+              pyproject=pyproject,
+          )
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-03xjk73n\overlay\lib\python3.14\site-packages\scikit_build_core\build\wheel.py", line 531, in _build_wheel_impl_impl
+          builder = configure_wheel(
+              cmake=cmake,
+          ...<7 lines>...
+              version=metadata.version,
+          )
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-03xjk73n\overlay\lib\python3.14\site-packages\scikit_build_core\build\common_wheel_helpers.py", line 294, in configure_wheel
+          builder.configure(
+          ~~~~~~~~~~~~~~~~~^
+              defines=defines,
+              ^^^^^^^^^^^^^^^^
+          ...<2 lines>...
+              version=version,
+              ^^^^^^^^^^^^^^^^
+          )
+          ^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-03xjk73n\overlay\lib\python3.14\site-packages\scikit_build_core\builder\builder.py", line 310, in configure
+          local_def = set_environment_for_gen(
+              current_gen,
+          ...<3 lines>...
+              env_managed_keys=self.settings.env.keys(),
+          )
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-03xjk73n\overlay\lib\python3.14\site-packages\scikit_build_core\builder\generator.py", line 196, in set_environment_for_gen
+          raise NinjaNotFoundError(msg)
+      scikit_build_core.errors.NinjaNotFoundError: Ninja or make is required to build
+      [end of output]
+  
+      note: This error originates from a subprocess, and is likely not a problem with pip.
+      ERROR: Failed building wheel for cmake
+    Failed to build cmake
+    error: failed-wheel-build-for-install
+  
+    Failed to build installable wheels for some pyproject.toml based projects
+  
+    cmake
+    [end of output]
+  
+    note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed to build 'ninja' when installing backend dependencies for ninja
+  [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+ERROR: Failed to build 'numpy' when installing backend dependencies for numpy
+
+=== Odysseus Setup ===
+
+1. Creating directories...
+  [ok] data/
+  [ok] data\uploads/
+  [ok] data\personal_docs/
+  [ok] data\personal_uploads/
+  [ok] data\tts_cache/
+  [ok] data\generated_images/
+  [ok] data\deep_research/
+  [ok] data\chroma/
+  [ok] data\rag/
+  [ok] data\memory_vectors/
+  [ok] logs/
+
+2. Environment file...
+  [warn] .env.example not found — create .env manually
+
+3. Checking dependencies...
+
+  [!] Missing packages: fastapi, uvicorn, sqlalchemy, bcrypt, httpx, dotenv, chromadb, fastembed, numpy, starlette
+  [?] Attempt to install missing packages now? (y/n): 
+4. Initializing database...
+  [warn] Database init failed: No module named 'httpx'
+         This is OK if dependencies aren't installed yet.
+
+5. Creating initial admin...
+  [warn] bcrypt not installed — skipping admin user creation
+         Run: pip install bcrypt
+
+=== Setup complete ===
+Admin creation did not happen: dependencies are missing.
+Run 'pip install bcrypt' and rerun setup.
+
+Collecting fastapi (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 1))
+  Downloading fastapi-0.141.1-py3-none-any.whl.metadata (27 kB)
+Collecting starlette (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 2))
+  Downloading starlette-1.6.0-py3-none-any.whl.metadata (6.4 kB)
+Collecting uvicorn (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 3))
+  Downloading uvicorn-0.52.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting python-multipart (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 4))
+  Using cached python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Collecting python-dotenv (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 5))
+  Using cached python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+Collecting httpx (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 6))
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting pydantic>=2.0 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 7))
+  Using cached pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+Collecting pydantic-settings>=2.0 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 8))
+  Downloading pydantic_settings-2.15.0-py3-none-any.whl.metadata (3.9 kB)
+Collecting SQLAlchemy (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 9))
+  Using cached sqlalchemy-2.0.51-py3-none-any.whl.metadata (9.5 kB)
+Collecting pypdf (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 10))
+  Downloading pypdf-6.15.0-py3-none-any.whl.metadata (7.5 kB)
+Collecting beautifulsoup4 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 11))
+  Using cached beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+Collecting charset-normalizer (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 12))
+  Using cached charset_normalizer-3.4.9-py3-none-any.whl.metadata (41 kB)
+Collecting numpy (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 13))
+  Downloading numpy-2.5.2.tar.gz (20.8 MB)
+     ---------------------------------------- 20.8/20.8 MB 74.9 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Installing backend dependencies: started
+  Installing backend dependencies: finished with status 'error'
+  error: subprocess-exited-with-error
+  
+  installing backend dependencies for numpy did not run successfully.
+  exit code: 1
+  
+  [133 lines of output]
+  Collecting ninja>=1.8.2
+    Using cached ninja-1.13.0.tar.gz (242 kB)
+    Installing build dependencies: started
+    Installing build dependencies: finished with status 'done'
+    Getting requirements to build wheel: started
+    Getting requirements to build wheel: finished with status 'done'
+    Installing backend dependencies: started
+    Installing backend dependencies: finished with status 'error'
+    error: subprocess-exited-with-error
+  
+    installing backend dependencies for ninja did not run successfully.
+    exit code: 1
+  
+    [115 lines of output]
+    Collecting hatch-fancy-pypi-readme>=23.2
+      Using cached hatch_fancy_pypi_readme-25.1.0-py3-none-any.whl.metadata (2.0 kB)
+    Collecting cmake>=3.15
+      Downloading cmake-4.4.2.tar.gz (34 kB)
+      Installing build dependencies: started
+      Installing build dependencies: finished with status 'done'
+      Getting requirements to build wheel: started
+      Getting requirements to build wheel: finished with status 'done'
+      Preparing metadata (pyproject.toml): started
+      Preparing metadata (pyproject.toml): finished with status 'done'
+    Collecting setuptools-scm
+      Downloading setuptools_scm-10.2.1-py3-none-any.whl.metadata (6.7 kB)
+    Collecting hatchling (from hatch-fancy-pypi-readme>=23.2)
+      Using cached hatchling-1.31.0-py3-none-any.whl.metadata (3.8 kB)
+    Collecting vcs-versioning<3,>=2.0.0.dev0 (from setuptools-scm)
+      Downloading vcs_versioning-2.2.4-py3-none-any.whl.metadata (1.7 kB)
+    Collecting packaging>=20 (from setuptools-scm)
+      Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+    Collecting setuptools (from setuptools-scm)
+      Downloading setuptools-84.0.0-py3-none-any.whl.metadata (6.6 kB)
+    Collecting pathspec>=0.10.1 (from hatchling->hatch-fancy-pypi-readme>=23.2)
+      Using cached pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+    Collecting pluggy>=1.0.0 (from hatchling->hatch-fancy-pypi-readme>=23.2)
+      Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+    Collecting trove-classifiers (from hatchling->hatch-fancy-pypi-readme>=23.2)
+      Using cached trove_classifiers-2026.6.1.19-py3-none-any.whl.metadata (2.3 kB)
+    Using cached hatch_fancy_pypi_readme-25.1.0-py3-none-any.whl (10 kB)
+    Downloading setuptools_scm-10.2.1-py3-none-any.whl (29 kB)
+    Downloading vcs_versioning-2.2.4-py3-none-any.whl (109 kB)
+    Using cached packaging-26.3-py3-none-any.whl (129 kB)
+    Using cached hatchling-1.31.0-py3-none-any.whl (77 kB)
+    Using cached pathspec-1.1.1-py3-none-any.whl (57 kB)
+    Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+    Downloading setuptools-84.0.0-py3-none-any.whl (818 kB)
+       ---------------------------------------- 818.2/818.2 kB 29.5 MB/s  0:00:00
+    Using cached trove_classifiers-2026.6.1.19-py3-none-any.whl (14 kB)
+    Building wheels for collected packages: cmake
+      Building wheel for cmake (pyproject.toml): started
+      Building wheel for cmake (pyproject.toml): finished with status 'error'
+      error: subprocess-exited-with-error
+  
+      Building wheel for cmake (pyproject.toml) did not run successfully.
+      exit code: 1
+  
+      [60 lines of output]
+      *** scikit-build-core 1.0.3 using CMake 4.4.2 (wheel)
+      *** Configuring CMake...
+      Traceback (most recent call last):
+        File "C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\venv\lib\python3.14\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 389, in <module>
+          main()
+          ~~~~^^
+        File "C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\venv\lib\python3.14\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 373, in main
+          json_out["return_val"] = hook(**hook_input["kwargs"])
+                                   ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\venv\lib\python3.14\site-packages\pip\_vendor\pyproject_hooks\_in_process\_in_process.py", line 280, in build_wheel
+          return _build_backend().build_wheel(
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+              wheel_directory, config_settings, metadata_directory
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+          )
+          ^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-install-kgfs5_xm\cmake_1040c22f9217402a8ff2bb4952703bc4\_build_backend\backend.py", line 159, in build_wheel
+          return _orig.build_wheel(wheel_directory, config_settings, metadata_directory)
+                 ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-9liz0lt4\overlay\lib\python3.14\site-packages\scikit_build_core\build\__init__.py", line 53, in build_wheel
+          return _build_wheel_impl(
+                 ~~~~~~~~~~~~~~~~~^
+              wheel_directory,
+              ^^^^^^^^^^^^^^^^
+          ...<2 lines>...
+              editable=False,
+              ^^^^^^^^^^^^^^^
+          ).wheel_filename
+          ^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-9liz0lt4\overlay\lib\python3.14\site-packages\scikit_build_core\build\wheel.py", line 267, in _build_wheel_impl
+          return _build_wheel_impl_impl(
+              wheel_directory,
+          ...<5 lines>...
+              pyproject=pyproject,
+          )
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-9liz0lt4\overlay\lib\python3.14\site-packages\scikit_build_core\build\wheel.py", line 531, in _build_wheel_impl_impl
+          builder = configure_wheel(
+              cmake=cmake,
+          ...<7 lines>...
+              version=metadata.version,
+          )
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-9liz0lt4\overlay\lib\python3.14\site-packages\scikit_build_core\build\common_wheel_helpers.py", line 294, in configure_wheel
+          builder.configure(
+          ~~~~~~~~~~~~~~~~~^
+              defines=defines,
+              ^^^^^^^^^^^^^^^^
+          ...<2 lines>...
+              version=version,
+              ^^^^^^^^^^^^^^^^
+          )
+          ^
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-9liz0lt4\overlay\lib\python3.14\site-packages\scikit_build_core\builder\builder.py", line 310, in configure
+          local_def = set_environment_for_gen(
+              current_gen,
+          ...<3 lines>...
+              env_managed_keys=self.settings.env.keys(),
+          )
+        File "C:\Users\jaile\AppData\Local\Temp\pip-build-env-9liz0lt4\overlay\lib\python3.14\site-packages\scikit_build_core\builder\generator.py", line 196, in set_environment_for_gen
+          raise NinjaNotFoundError(msg)
+      scikit_build_core.errors.NinjaNotFoundError: Ninja or make is required to build
+      [end of output]
+  
+      note: This error originates from a subprocess, and is likely not a problem with pip.
+      ERROR: Failed building wheel for cmake
+    Failed to build cmake
+    error: failed-wheel-build-for-install
+  
+    Failed to build installable wheels for some pyproject.toml based projects
+  
+    cmake
+    [end of output]
+  
+    note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed to build 'ninja' when installing backend dependencies for ninja
+  [end of output]
+  
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+ERROR: Failed to build 'numpy' when installing backend dependencies for numpy
+
+=== Odysseus Setup ===
+
+1. Creating directories...
+  [ok] data/
+  [ok] data\uploads/
+  [ok] data\personal_docs/
+  [ok] data\personal_uploads/
+  [ok] data\tts_cache/
+  [ok] data\generated_images/
+  [ok] data\deep_research/
+  [ok] data\chroma/
+  [ok] data\rag/
+  [ok] data\memory_vectors/
+  [ok] logs/
+
+2. Environment file...
+  [warn] .env.example not found — create .env manually
+
+3. Checking dependencies...
+
+  [!] Missing packages: fastapi, uvicorn, sqlalchemy, bcrypt, httpx, dotenv, chromadb, fastembed, numpy, starlette
+  [warn] Run: pip install -r requirements.txt
+
+4. Initializing database...
+  [warn] Database init failed: No module named 'httpx'
+         This is OK if dependencies aren't installed yet.
+
+5. Creating initial admin...
+  [warn] bcrypt not installed — skipping admin user creation
+         Run: pip install bcrypt
+
+=== Setup complete ===
+Admin creation did not happen: dependencies are missing.
+Run 'pip install bcrypt' and rerun setup.
+
+Collecting fastapi (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 1))
+  Using cached fastapi-0.141.1-py3-none-any.whl.metadata (27 kB)
+Collecting starlette (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 2))
+  Using cached starlette-1.6.0-py3-none-any.whl.metadata (6.4 kB)
+Collecting uvicorn (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 3))
+  Using cached uvicorn-0.52.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting python-multipart (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 4))
+  Using cached python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Collecting python-dotenv (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 5))
+  Using cached python_dotenv-1.2.2-py3-none-any.whl.metadata (27 kB)
+Collecting httpx (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 6))
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting pydantic>=2.0 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 7))
+  Using cached pydantic-2.13.4-py3-none-any.whl.metadata (109 kB)
+Collecting pydantic-settings>=2.0 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 8))
+  Using cached pydantic_settings-2.15.0-py3-none-any.whl.metadata (3.9 kB)
+Collecting SQLAlchemy (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 9))
+  Using cached sqlalchemy-2.0.51-cp311-cp311-win_amd64.whl.metadata (9.8 kB)
+Collecting pypdf (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 10))
+  Using cached pypdf-6.15.0-py3-none-any.whl.metadata (7.5 kB)
+Collecting beautifulsoup4 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 11))
+  Using cached beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+Collecting charset-normalizer (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 12))
+  Downloading charset_normalizer-3.4.9-cp311-cp311-win_amd64.whl.metadata (42 kB)
+Collecting numpy (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 13))
+  Using cached numpy-2.4.6-cp311-cp311-win_amd64.whl.metadata (6.6 kB)
+Collecting chromadb (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading chromadb-1.5.9-cp39-abi3-win_amd64.whl.metadata (5.1 kB)
+Collecting fastembed (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Using cached fastembed-0.8.0-py3-none-any.whl.metadata (10 kB)
+Collecting youtube-transcript-api (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 20))
+  Using cached youtube_transcript_api-1.2.4-py3-none-any.whl.metadata (24 kB)
+Collecting markdown (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 23))
+  Downloading markdown-3.10.3-py3-none-any.whl.metadata (5.1 kB)
+Collecting nh3 (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 27))
+  Using cached nh3-0.3.6-cp38-abi3-win_amd64.whl.metadata (2.0 kB)
+Collecting icalendar (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 29))
+  Downloading icalendar-7.2.2-py3-none-any.whl.metadata (6.9 kB)
+Collecting python-dateutil (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 33))
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting caldav (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Using cached caldav-3.2.1-py3-none-any.whl.metadata (4.3 kB)
+Collecting cryptography (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 38))
+  Downloading cryptography-50.0.0-cp311-abi3-win_amd64.whl.metadata (4.3 kB)
+Collecting bcrypt (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 39))
+  Using cached bcrypt-5.0.0-cp39-abi3-win_amd64.whl.metadata (10 kB)
+Collecting mcp (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Downloading mcp-2.0.0-py3-none-any.whl.metadata (7.7 kB)
+Collecting pyotp (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 41))
+  Using cached pyotp-2.10.0-py3-none-any.whl.metadata (10 kB)
+Collecting croniter (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 43))
+  Downloading croniter-6.2.4-py3-none-any.whl.metadata (23 kB)
+Collecting pytest (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 44))
+  Using cached pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting pytest-asyncio (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 45))
+  Using cached pytest_asyncio-1.4.0-py3-none-any.whl.metadata (4.1 kB)
+Collecting qrcode[pil] (from -r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 42))
+  Using cached qrcode-8.2-py3-none-any.whl.metadata (17 kB)
+Collecting typing-extensions>=4.8.0 (from fastapi->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 1))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting typing-inspection>=0.4.2 (from fastapi->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 1))
+  Downloading typing_inspection-0.4.3-py3-none-any.whl.metadata (2.6 kB)
+Collecting annotated-doc>=0.0.2 (from fastapi->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 1))
+  Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting anyio<5,>=3.6.2 (from starlette->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 2))
+  Downloading anyio-4.14.2-py3-none-any.whl.metadata (4.6 kB)
+Collecting idna>=2.8 (from anyio<5,>=3.6.2->starlette->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 2))
+  Using cached idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+Collecting click>=7.0 (from uvicorn->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 3))
+  Using cached click-8.4.2-py3-none-any.whl.metadata (2.6 kB)
+Collecting h11>=0.8 (from uvicorn->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 3))
+  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting certifi (from httpx->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 6))
+  Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 6))
+  Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting annotated-types>=0.6.0 (from pydantic>=2.0->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 7))
+  Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.46.4 (from pydantic>=2.0->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 7))
+  Using cached pydantic_core-2.46.4-cp311-cp311-win_amd64.whl.metadata (6.7 kB)
+Collecting greenlet>=1 (from SQLAlchemy->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 9))
+  Downloading greenlet-3.5.5-cp311-cp311-win_amd64.whl.metadata (3.9 kB)
+Collecting soupsieve>=1.6.1 (from beautifulsoup4->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 11))
+  Downloading soupsieve-2.9.2-py3-none-any.whl.metadata (4.6 kB)
+Collecting build>=1.0.3 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached build-1.5.0-py3-none-any.whl.metadata (5.7 kB)
+Collecting pybase64>=1.4.1 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading pybase64-1.5.0-cp311-cp311-win_amd64.whl.metadata (11 kB)
+Collecting onnxruntime>=1.14.1 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading onnxruntime-1.28.0-cp311-cp311-win_amd64.whl.metadata (5.7 kB)
+Collecting opentelemetry-api>=1.2.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading opentelemetry_api-1.44.0-py3-none-any.whl.metadata (1.4 kB)
+Collecting opentelemetry-exporter-otlp-proto-grpc>=1.2.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading opentelemetry_exporter_otlp_proto_grpc-1.44.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-sdk>=1.2.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading opentelemetry_sdk-1.44.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting tokenizers>=0.13.2 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached tokenizers-0.23.1-cp310-abi3-win_amd64.whl.metadata (10 kB)
+Collecting pypika>=0.48.9 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached pypika-0.51.1-py2.py3-none-any.whl.metadata (51 kB)
+Collecting tqdm>=4.65.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading tqdm-4.70.0-py3-none-any.whl.metadata (57 kB)
+Collecting overrides>=7.3.1 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached overrides-7.7.0-py3-none-any.whl.metadata (5.8 kB)
+Collecting importlib-resources (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached importlib_resources-7.1.0-py3-none-any.whl.metadata (4.0 kB)
+Collecting grpcio>=1.58.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading grpcio-1.83.0-cp311-cp311-win_amd64.whl.metadata (3.8 kB)
+Collecting typer>=0.9.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading typer-0.27.1-py3-none-any.whl.metadata (16 kB)
+Collecting kubernetes>=28.1.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading kubernetes-36.0.3-py2.py3-none-any.whl.metadata (1.8 kB)
+Collecting tenacity>=8.2.3 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+Collecting pyyaml>=6.0.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached pyyaml-6.0.3-cp311-cp311-win_amd64.whl.metadata (2.4 kB)
+Collecting mmh3>=4.0.1 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached mmh3-5.2.1-cp311-cp311-win_amd64.whl.metadata (15 kB)
+Collecting orjson>=3.9.12 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached orjson-3.11.9-cp311-cp311-win_amd64.whl.metadata (43 kB)
+Collecting rich>=10.11.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting jsonschema>=4.19.0 (from chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting huggingface-hub<2.0,>=0.20 (from fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Downloading huggingface_hub-1.27.0-py3-none-any.whl.metadata (16 kB)
+Collecting loguru<0.8.0,>=0.7.2 (from fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Using cached loguru-0.7.3-py3-none-any.whl.metadata (22 kB)
+Collecting pillow<13.0,>=10.3.0 (from fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Downloading pillow-12.3.0-cp311-cp311-win_amd64.whl.metadata (9.3 kB)
+Collecting py-rust-stemmers<0.2.0,>=0.1.0 (from fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Using cached py_rust_stemmers-0.1.8-cp311-cp311-win_amd64.whl.metadata (3.6 kB)
+Collecting requests<3.0,>=2.31 (from fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting filelock>=3.10.0 (from huggingface-hub<2.0,>=0.20->fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Downloading filelock-3.32.2-py3-none-any.whl.metadata (2.0 kB)
+Collecting fsspec>=2023.5.0 (from huggingface-hub<2.0,>=0.20->fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Downloading fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+Collecting hf-xet<2.0.0,>=1.5.2 (from huggingface-hub<2.0,>=0.20->fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Downloading hf_xet-1.6.0-cp38-abi3-win_amd64.whl.metadata (4.9 kB)
+Collecting packaging>=20.9 (from huggingface-hub<2.0,>=0.20->fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting colorama (from click>=7.0->uvicorn->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 3))
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting win32-setctime>=1.0.0 (from loguru<0.8.0,>=0.7.2->fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Using cached win32_setctime-1.2.0-py3-none-any.whl.metadata (2.4 kB)
+Collecting urllib3<3,>=1.26 (from requests<3.0,>=2.31->fastembed->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 19))
+  Using cached urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting defusedxml<0.8.0,>=0.7.1 (from youtube-transcript-api->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 20))
+  Using cached defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Collecting tzdata>=2025.3 (from icalendar->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 29))
+  Downloading tzdata-2026.3-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting six>=1.5 (from python-dateutil->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 33))
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting dnspython (from caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Using cached dnspython-2.8.0-py3-none-any.whl.metadata (5.7 kB)
+Collecting icalendar-searcher<2,>=1.0.5 (from caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Using cached icalendar_searcher-1.0.6-py3-none-any.whl.metadata (8.9 kB)
+Collecting lxml (from caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Using cached lxml-6.1.1-cp311-cp311-win_amd64.whl.metadata (3.6 kB)
+Collecting niquests (from caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Downloading niquests-3.21.0-py3-none-any.whl.metadata (16 kB)
+Collecting recurring-ical-events>=2.0.0 (from caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Using cached recurring_ical_events-3.8.2-py3-none-any.whl.metadata (4.5 kB)
+Collecting cffi>=2.0.0 (from cryptography->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 38))
+  Downloading cffi-2.1.1-cp311-cp311-win_amd64.whl.metadata (2.6 kB)
+Collecting httpx2>=2.5.0 (from mcp->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Downloading httpx2-2.10.0-py3-none-any.whl.metadata (10 kB)
+Collecting mcp-types==2.0.0 (from mcp->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Downloading mcp_types-2.0.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting pyjwt>=2.10.1 (from pyjwt[crypto]>=2.10.1->mcp->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Using cached pyjwt-2.13.0-py3-none-any.whl.metadata (3.4 kB)
+Collecting pywin32>=311 (from mcp->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Using cached pywin32-312-cp311-cp311-win_amd64.whl.metadata (11 kB)
+Collecting sse-starlette>=3.0.0 (from mcp->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Downloading sse_starlette-3.4.8-py3-none-any.whl.metadata (15 kB)
+Collecting iniconfig>=1.0.1 (from pytest->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 44))
+  Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 44))
+  Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pygments>=2.7.2 (from pytest->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 44))
+  Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting pyproject_hooks (from build>=1.0.3->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached pyproject_hooks-1.2.0-py3-none-any.whl.metadata (1.3 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 38))
+  Using cached pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting httpcore2==2.10.0 (from httpx2>=2.5.0->mcp->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Downloading httpcore2-2.10.0-py3-none-any.whl.metadata (25 kB)
+Collecting truststore>=0.10 (from httpx2>=2.5.0->mcp->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 40))
+  Using cached truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+Collecting attrs>=22.2.0 (from jsonschema>=4.19.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=4.19.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema>=4.19.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema>=4.19.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading rpds_py-2026.6.3-cp311-cp311-win_amd64.whl.metadata (4.2 kB)
+Collecting websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 (from kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached websocket_client-1.9.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting requests-oauthlib (from kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata (11 kB)
+Collecting durationpy>=0.7 (from kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached durationpy-0.10-py3-none-any.whl.metadata (340 bytes)
+Collecting aiohttp<4.0.0,>=3.13.5 (from kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading aiohttp-3.14.3-cp311-cp311-win_amd64.whl.metadata (8.5 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached frozenlist-1.8.0-cp311-cp311-win_amd64.whl.metadata (21 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached multidict-6.7.1-cp311-cp311-win_amd64.whl.metadata (5.5 kB)
+Collecting propcache>=0.2.0 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached propcache-0.5.2-cp311-cp311-win_amd64.whl.metadata (17 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading yarl-1.24.5-cp311-cp311-win_amd64.whl.metadata (107 kB)
+Collecting flatbuffers (from onnxruntime>=1.14.1->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+Collecting protobuf>=4.25.8 (from onnxruntime>=1.14.1->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached protobuf-7.35.1-cp310-abi3-win_amd64.whl.metadata (595 bytes)
+Collecting googleapis-common-protos~=1.57 (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading googleapis_common_protos-1.75.1-py3-none-any.whl.metadata (8.5 kB)
+Collecting opentelemetry-exporter-otlp-proto-common==1.44.0 (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading opentelemetry_exporter_otlp_proto_common-1.44.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting opentelemetry-proto==1.44.0 (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading opentelemetry_proto-1.44.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting opentelemetry-semantic-conventions==0.65b0 (from opentelemetry-sdk>=1.2.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting x-wr-timezone<3.0.0,>=1.0.0 (from recurring-ical-events>=2.0.0->caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Using cached x_wr_timezone-2.0.1-py3-none-any.whl.metadata (10 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=10.11.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting shellingham>=1.3.0 (from typer>=0.9.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.18.3->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached httptools-0.8.0-cp311-cp311-win_amd64.whl.metadata (3.7 kB)
+Collecting watchfiles>=0.20 (from uvicorn[standard]>=0.18.3->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached watchfiles-1.2.0-cp311-cp311-win_amd64.whl.metadata (5.0 kB)
+Collecting websockets>=13.0 (from uvicorn[standard]>=0.18.3->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Downloading websockets-17.0.1-cp311-cp311-win_amd64.whl.metadata (6.5 kB)
+Collecting urllib3-future<3,>=2.13.903 (from niquests->caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Downloading urllib3_future-2.24.900-py3-none-any.whl.metadata (20 kB)
+Collecting wassima<3,>=1.0.1 (from niquests->caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Downloading wassima-2.1.3-py3-none-any.whl.metadata (5.6 kB)
+Collecting jh2<6.0.0,>=5.0.3 (from urllib3-future<3,>=2.13.903->niquests->caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Using cached jh2-5.0.13-cp37-abi3-win_amd64.whl.metadata (4.1 kB)
+Collecting qh3<2.0.0,>=1.5.4 (from urllib3-future<3,>=2.13.903->niquests->caldav->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 37))
+  Downloading qh3-1.9.4-cp37-abi3-win_amd64.whl.metadata (5.2 kB)
+Collecting oauthlib>=3.0.0 (from requests-oauthlib->kubernetes>=28.1.0->chromadb->-r C:\Users\jaile\Downloads\KKOS_v5.2_Unified_Bundle\odysseus\requirements.txt (line 18))
+  Using cached oauthlib-3.3.1-py3-none-any.whl.metadata (7.9 kB)
+Downloading fastapi-0.141.1-py3-none-any.whl (131 kB)
+Downloading starlette-1.6.0-py3-none-any.whl (75 kB)
+Downloading anyio-4.14.2-py3-none-any.whl (125 kB)
+Downloading uvicorn-0.52.1-py3-none-any.whl (79 kB)
+Using cached python_multipart-0.0.32-py3-none-any.whl (30 kB)
+Using cached python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Using cached pydantic-2.13.4-py3-none-any.whl (472 kB)
+Using cached pydantic_core-2.46.4-cp311-cp311-win_amd64.whl (2.1 MB)
+Downloading pydantic_settings-2.15.0-py3-none-any.whl (69 kB)
+Using cached sqlalchemy-2.0.51-cp311-cp311-win_amd64.whl (2.1 MB)
+Downloading pypdf-6.15.0-py3-none-any.whl (378 kB)
+Using cached beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+Downloading charset_normalizer-3.4.9-cp311-cp311-win_amd64.whl (161 kB)
+Using cached numpy-2.4.6-cp311-cp311-win_amd64.whl (12.6 MB)
+Downloading chromadb-1.5.9-cp39-abi3-win_amd64.whl (23.5 MB)
+   ---------------------------------------- 23.5/23.5 MB 67.9 MB/s  0:00:00
+Using cached fastembed-0.8.0-py3-none-any.whl (116 kB)
+Downloading huggingface_hub-1.27.0-py3-none-any.whl (784 kB)
+   ---------------------------------------- 784.9/784.9 kB 34.9 MB/s  0:00:00
+Using cached click-8.4.2-py3-none-any.whl (119 kB)
+Downloading hf_xet-1.6.0-cp38-abi3-win_amd64.whl (4.0 MB)
+   ---------------------------------------- 4.0/4.0 MB 82.0 MB/s  0:00:00
+Using cached loguru-0.7.3-py3-none-any.whl (61 kB)
+Using cached mmh3-5.2.1-cp311-cp311-win_amd64.whl (41 kB)
+Downloading pillow-12.3.0-cp311-cp311-win_amd64.whl (7.2 MB)
+   ---------------------------------------- 7.2/7.2 MB 55.8 MB/s  0:00:00
+Using cached py_rust_stemmers-0.1.8-cp311-cp311-win_amd64.whl (208 kB)
+Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+Using cached idna-3.18-py3-none-any.whl (65 kB)
+Using cached tokenizers-0.23.1-cp310-abi3-win_amd64.whl (2.8 MB)
+Downloading tqdm-4.70.0-py3-none-any.whl (80 kB)
+Using cached urllib3-2.7.0-py3-none-any.whl (131 kB)
+Using cached youtube_transcript_api-1.2.4-py3-none-any.whl (485 kB)
+Using cached defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Downloading markdown-3.10.3-py3-none-any.whl (110 kB)
+Using cached nh3-0.3.6-cp38-abi3-win_amd64.whl (624 kB)
+Downloading icalendar-7.2.2-py3-none-any.whl (502 kB)
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Using cached caldav-3.2.1-py3-none-any.whl (215 kB)
+Using cached icalendar_searcher-1.0.6-py3-none-any.whl (38 kB)
+Downloading cryptography-50.0.0-cp311-abi3-win_amd64.whl (3.8 MB)
+   ---------------------------------------- 3.8/3.8 MB 77.8 MB/s  0:00:00
+Using cached bcrypt-5.0.0-cp39-abi3-win_amd64.whl (150 kB)
+Downloading mcp-2.0.0-py3-none-any.whl (349 kB)
+Downloading mcp_types-2.0.0-py3-none-any.whl (69 kB)
+Using cached pyotp-2.10.0-py3-none-any.whl (13 kB)
+Using cached qrcode-8.2-py3-none-any.whl (45 kB)
+Downloading croniter-6.2.4-py3-none-any.whl (46 kB)
+Using cached pytest-9.1.1-py3-none-any.whl (386 kB)
+Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+Using cached pytest_asyncio-1.4.0-py3-none-any.whl (16 kB)
+Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Using cached build-1.5.0-py3-none-any.whl (26 kB)
+Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+Downloading cffi-2.1.1-cp311-cp311-win_amd64.whl (185 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading filelock-3.32.2-py3-none-any.whl (98 kB)
+Downloading fsspec-2026.7.0-py3-none-any.whl (206 kB)
+Downloading greenlet-3.5.5-cp311-cp311-win_amd64.whl (323 kB)
+Downloading grpcio-1.83.0-cp311-cp311-win_amd64.whl (5.2 MB)
+   ---------------------------------------- 5.2/5.2 MB 62.9 MB/s  0:00:00
+Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading httpx2-2.10.0-py3-none-any.whl (94 kB)
+Downloading httpcore2-2.10.0-py3-none-any.whl (83 kB)
+Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Downloading kubernetes-36.0.3-py2.py3-none-any.whl (4.6 MB)
+   ---------------------------------------- 4.6/4.6 MB 55.8 MB/s  0:00:00
+Downloading aiohttp-3.14.3-cp311-cp311-win_amd64.whl (481 kB)
+Using cached multidict-6.7.1-cp311-cp311-win_amd64.whl (45 kB)
+Downloading yarl-1.24.5-cp311-cp311-win_amd64.whl (97 kB)
+Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Using cached aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Using cached durationpy-0.10-py3-none-any.whl (3.9 kB)
+Using cached frozenlist-1.8.0-cp311-cp311-win_amd64.whl (44 kB)
+Downloading onnxruntime-1.28.0-cp311-cp311-win_amd64.whl (13.8 MB)
+   ---------------------------------------- 13.8/13.8 MB 34.5 MB/s  0:00:00
+Downloading opentelemetry_api-1.44.0-py3-none-any.whl (60 kB)
+Downloading opentelemetry_exporter_otlp_proto_grpc-1.44.0-py3-none-any.whl (19 kB)
+Downloading opentelemetry_exporter_otlp_proto_common-1.44.0-py3-none-any.whl (17 kB)
+Downloading opentelemetry_proto-1.44.0-py3-none-any.whl (72 kB)
+Downloading googleapis_common_protos-1.75.1-py3-none-any.whl (300 kB)
+Downloading opentelemetry_sdk-1.44.0-py3-none-any.whl (137 kB)
+Downloading opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl (204 kB)
+Downloading protobuf-7.35.1-cp310-abi3-win_amd64.whl (439 kB)
+Using cached orjson-3.11.9-cp311-cp311-win_amd64.whl (127 kB)
+Using cached overrides-7.7.0-py3-none-any.whl (17 kB)
+Using cached packaging-26.3-py3-none-any.whl (129 kB)
+Using cached propcache-0.5.2-cp311-cp311-win_amd64.whl (42 kB)
+Downloading pybase64-1.5.0-cp311-cp311-win_amd64.whl (44 kB)
+Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Using cached pyjwt-2.13.0-py3-none-any.whl (31 kB)
+Using cached pypika-0.51.1-py2.py3-none-any.whl (60 kB)
+Using cached pywin32-312-cp311-cp311-win_amd64.whl (6.9 MB)
+Using cached pyyaml-6.0.3-cp311-cp311-win_amd64.whl (158 kB)
+Using cached recurring_ical_events-3.8.2-py3-none-any.whl (241 kB)
+Using cached x_wr_timezone-2.0.1-py3-none-any.whl (11 kB)
+Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+Using cached markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading rpds_py-2026.6.3-cp311-cp311-win_amd64.whl (223 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading soupsieve-2.9.2-py3-none-any.whl (37 kB)
+Downloading sse_starlette-3.4.8-py3-none-any.whl (16 kB)
+Using cached tenacity-9.1.4-py3-none-any.whl (28 kB)
+Using cached truststore-0.10.4-py3-none-any.whl (18 kB)
+Downloading typer-0.27.1-py3-none-any.whl (122 kB)
+Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Downloading typing_inspection-0.4.3-py3-none-any.whl (14 kB)
+Downloading tzdata-2026.3-py2.py3-none-any.whl (348 kB)
+Using cached httptools-0.8.0-cp311-cp311-win_amd64.whl (90 kB)
+Using cached watchfiles-1.2.0-cp311-cp311-win_amd64.whl (290 kB)
+Using cached websocket_client-1.9.0-py3-none-any.whl (82 kB)
+Downloading websockets-17.0.1-cp311-cp311-win_amd64.whl (213 kB)
+Using cached win32_setctime-1.2.0-py3-none-any.whl (4.1 kB)
+Using cached dnspython-2.8.0-py3-none-any.whl (331 kB)
+Using cached flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+Using cached importlib_resources-7.1.0-py3-none-any.whl (37 kB)
+Using cached lxml-6.1.1-cp311-cp311-win_amd64.whl (4.0 MB)
+Downloading niquests-3.21.0-py3-none-any.whl (230 kB)
+Downloading urllib3_future-2.24.900-py3-none-any.whl (809 kB)
+   ---------------------------------------- 809.9/809.9 kB 34.2 MB/s  0:00:00
+Using cached jh2-5.0.13-cp37-abi3-win_amd64.whl (252 kB)
+Downloading qh3-1.9.4-cp37-abi3-win_amd64.whl (2.1 MB)
+   ---------------------------------------- 2.1/2.1 MB 60.3 MB/s  0:00:00
+Downloading wassima-2.1.3-py3-none-any.whl (131 kB)
+Using cached pycparser-3.0-py3-none-any.whl (48 kB)
+Using cached pyproject_hooks-1.2.0-py3-none-any.whl (10 kB)
+Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+Using cached oauthlib-3.3.1-py3-none-any.whl (160 kB)
+Installing collected packages: pypika, flatbuffers, durationpy, win32-setctime, websockets, websocket-client, wassima, urllib3, tzdata, typing-extensions, truststore, tenacity, soupsieve, six, shellingham, rpds-py, qh3, pyyaml, pywin32, python-multipart, python-dotenv, pyproject_hooks, pypdf, pyotp, pyjwt, pygments, pycparser, pybase64, py-rust-stemmers, protobuf, propcache, pluggy, pillow, packaging, overrides, orjson, oauthlib, numpy, nh3, multidict, mmh3, mdurl, markdown, lxml, jh2, iniconfig, importlib-resources, idna, httptools, hf-xet, h11, greenlet, fsspec, frozenlist, filelock, dnspython, defusedxml, colorama, charset-normalizer, certifi, bcrypt, attrs, annotated-types, annotated-doc, aiohappyeyeballs, yarl, urllib3-future, typing-inspection, tqdm, SQLAlchemy, requests, referencing, qrcode, python-dateutil, pytest, pydantic-core, opentelemetry-proto, opentelemetry-api, onnxruntime, markdown-it-py, loguru, httpcore2, httpcore, grpcio, googleapis-common-protos, click, cffi, build, beautifulsoup4, anyio, aiosignal, youtube-transcript-api, watchfiles, uvicorn, starlette, rich, requests-oauthlib, pytest-asyncio, pydantic, opentelemetry-semantic-conventions, opentelemetry-exporter-otlp-proto-common, niquests, jsonschema-specifications, icalendar, httpx2, httpx, cryptography, croniter, aiohttp, x-wr-timezone, typer, sse-starlette, pydantic-settings, opentelemetry-sdk, mcp-types, kubernetes, jsonschema, huggingface-hub, fastapi, tokenizers, recurring-ical-events, opentelemetry-exporter-otlp-proto-grpc, mcp, icalendar-searcher, fastembed, chromadb, caldav
+
+Successfully installed SQLAlchemy-2.0.51 aiohappyeyeballs-2.7.1 aiohttp-3.14.3 aiosignal-1.4.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.14.2 attrs-26.1.0 bcrypt-5.0.0 beautifulsoup4-4.15.0 build-1.5.0 caldav-3.2.1 certifi-2026.7.22 cffi-2.1.1 charset-normalizer-3.4.9 chromadb-1.5.9 click-8.4.2 colorama-0.4.6 croniter-6.2.4 cryptography-50.0.0 defusedxml-0.7.1 dnspython-2.8.0 durationpy-0.10 fastapi-0.141.1 fastembed-0.8.0 filelock-3.32.2 flatbuffers-25.12.19 frozenlist-1.8.0 fsspec-2026.7.0 googleapis-common-protos-1.75.1 greenlet-3.5.5 grpcio-1.83.0 h11-0.16.0 hf-xet-1.6.0 httpcore-1.0.9 httpcore2-2.10.0 httptools-0.8.0 httpx-0.28.1 httpx2-2.10.0 huggingface-hub-1.27.0 icalendar-7.2.2 icalendar-searcher-1.0.6 idna-3.18 importlib-resources-7.1.0 iniconfig-2.3.0 jh2-5.0.13 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 kubernetes-36.0.3 loguru-0.7.3 lxml-6.1.1 markdown-3.10.3 markdown-it-py-4.2.0 mcp-2.0.0 mcp-types-2.0.0 mdurl-0.1.2 mmh3-5.2.1 multidict-6.7.1 nh3-0.3.6 niquests-3.21.0 numpy-2.4.6 oauthlib-3.3.1 onnxruntime-1.28.0 opentelemetry-api-1.44.0 opentelemetry-exporter-otlp-proto-common-1.44.0 opentelemetry-exporter-otlp-proto-grpc-1.44.0 opentelemetry-proto-1.44.0 opentelemetry-sdk-1.44.0 opentelemetry-semantic-conventions-0.65b0 orjson-3.11.9 overrides-7.7.0 packaging-26.3 pillow-12.3.0 pluggy-1.6.0 propcache-0.5.2 protobuf-7.35.1 py-rust-stemmers-0.1.8 pybase64-1.5.0 pycparser-3.0 pydantic-2.13.4 pydantic-core-2.46.4 pydantic-settings-2.15.0 pygments-2.20.0 pyjwt-2.13.0 pyotp-2.10.0 pypdf-6.15.0 pypika-0.51.1 pyproject_hooks-1.2.0 pytest-9.1.1 pytest-asyncio-1.4.0 python-dateutil-2.9.0.post0 python-dotenv-1.2.2 python-multipart-0.0.32 pywin32-312 pyyaml-6.0.3 qh3-1.9.4 qrcode-8.2 recurring-ical-events-3.8.2 referencing-0.37.0 requests-2.34.2 requests-oauthlib-2.0.0 rich-15.0.0 rpds-py-2026.6.3 shellingham-1.5.4 six-1.17.0 soupsieve-2.9.2 sse-starlette-3.4.8 starlette-1.6.0 tenacity-9.1.4 tokenizers-0.23.1 tqdm-4.70.0 truststore-0.10.4 typer-0.27.1 typing-extensions-4.16.0 typing-inspection-0.4.3 tzdata-2026.3 urllib3-2.7.0 urllib3-future-2.24.900 uvicorn-0.52.1 wassima-2.1.3 watchfiles-1.2.0 websocket-client-1.9.0 websockets-17.0.1 win32-setctime-1.2.0 x-wr-timezone-2.0.1 yarl-1.24.5 youtube-transcript-api-1.2.4
+
+=== Odysseus Setup ===
+
+1. Creating directories...
+  [ok] data/
+  [ok] data\uploads/
+  [ok] data\personal_docs/
+  [ok] data\personal_uploads/
+  [ok] data\tts_cache/
+  [ok] data\generated_images/
+  [ok] data\deep_research/
+  [ok] data\chroma/
+  [ok] data\rag/
+  [ok] data\memory_vectors/
+  [ok] logs/
+
+2. Environment file...
+  [warn] .env.example not found — create .env manually
+
+3. Checking dependencies...
+  [ok] All core dependencies installed
+
+4. Initializing database...
+  [ok] Database initialized
+
+5. Creating initial admin...
+  [ok] Initial admin user created (admin)
+        Temporary password: jC0coT5TkK5TvbIRqQP0e58H
+        ** Change it after first login. Set ODYSSEUS_ADMIN_PASSWORD to choose your own. **
+
+=== Setup complete ===
+Login with your admin credentials.
+
